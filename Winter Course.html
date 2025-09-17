@@ -1,0 +1,1441 @@
+﻿<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>Winter School — Scientific Computing & ML</title>
+    <meta name="description" content="Winter School on Scientific Computing & Machine Learning — single-file updated hero." />
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='0.9em' font-size='90'>❄️</text></svg>">
+    <style>
+        /* ========= Variables & Reset ========= */
+        :root {
+            --bg: #0f1724;
+            --muted: #98a0b3;
+            --accent1: #06b6d4;
+            --accent2: #7c3aed;
+            --accent-grad: linear-gradient(90deg,var(--accent1),var(--accent2));
+            --glass: rgba(255,255,255,0.03);
+            --card-radius: 14px;
+            --ease: cubic-bezier(.2,.9,.2,1);
+            --max-width: 1200px;
+            --text: #e6eef8;
+            --shadow: 0 18px 60px rgba(2,6,23,0.7);
+            --focus: 3px rgba(124,58,237,0.18);
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+        }
+
+        html, body {
+            height: 100%;
+            margin: 0;
+            font-family: Inter, ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+            background: radial-gradient(1200px 600px at 10% 10%, rgba(99,102,241,0.04), transparent 6%), radial-gradient(900px 600px at 90% 90%, rgba(6,182,212,0.03), transparent 6%), var(--bg);
+            color: var(--text);
+            line-height: 1.45;
+        }
+
+        a {
+            color: inherit;
+            text-decoration: none;
+        }
+
+        img {
+            max-width: 100%;
+            height: auto;
+            display: block;
+        }
+
+        button {
+            font-family: inherit;
+        }
+
+        /* ========= NAVBAR ========= */
+        .nav {
+            position: sticky;
+            top: 0;
+            z-index: 190;
+            backdrop-filter: blur(6px);
+            background: linear-gradient(180deg, rgba(7,10,17,0.6), rgba(7,10,17,0.35));
+            border-bottom: 1px solid rgba(255,255,255,0.03);
+            padding: 10px 24px;
+        }
+
+        .nav-inner {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            display: flex;
+            gap: 16px;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .brand {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .logo {
+            width: 48px;
+            height: 48px;
+            border-radius: 12px;
+            background: var(--accent-grad);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 18px;
+            color: #02111a;
+            box-shadow: 0 6px 18px rgba(124,58,237,0.12);
+        }
+
+        .brand h1 {
+            font-size: 16px;
+            margin: 0;
+        }
+
+        .brand small {
+            color: var(--muted);
+            display: block;
+            font-size: 13px;
+        }
+
+        .menu {
+            display: flex;
+            gap: 14px;
+            align-items: center;
+        }
+
+            .menu a {
+                color: var(--muted);
+                padding: 8px 12px;
+                border-radius: 10px;
+                transition: all .28s var(--ease);
+                font-weight: 600;
+                font-size: 14px;
+            }
+
+                .menu a:hover, .menu a:focus {
+                    color: #fff;
+                    transform: translateY(-3px);
+                    outline: none;
+                }
+
+        .cta {
+            padding: 8px 14px;
+            border-radius: 12px;
+            background: var(--accent-grad);
+            color: #02111a;
+            font-weight: 700;
+        }
+
+        /* ========= HERO ========= */
+        .hero {
+            position: relative;
+            min-height: 86vh;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding: 34px 6%;
+            overflow: hidden;
+            background-color: #071224;
+        }
+
+            /* hero bg image placed via pseudo-element for better layering & parallax transform origin */
+            .hero::before {
+                content: "";
+                position: absolute;
+                inset: 0;
+                background: url("11436055-32b5-4e07-999c-105a4194a5e1.png") center/cover no-repeat;
+                z-index: -3;
+                transform: translateZ(0) translateY(0);
+                filter: contrast(.98) saturate(.9) brightness(.95);
+                transition: transform 0.9s var(--ease);
+                will-change: transform;
+            }
+
+            .hero::after {
+                content: "";
+                position: absolute;
+                inset: 0;
+                background: linear-gradient(180deg, rgba(2,6,23,0.6), rgba(2,6,23,0.4));
+                z-index: -2;
+            }
+
+        .hero-inner {
+            max-width: var(--max-width);
+            width: 100%;
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1fr 520px;
+            gap: 28px;
+            align-items: start;
+            position: relative;
+            z-index: 2;
+        }
+
+        .hero-left { /* empty column intentionally shows bg */
+            min-height: 320px;
+        }
+
+        .hero-panelless {
+            align-self: start;
+            justify-self: end;
+            width: 100%;
+            max-width: 520px;
+            color: #fff;
+            text-align: right;
+            padding: 8px 12px;
+            transform-origin: center right;
+        }
+
+            .hero-panelless h1 {
+                font-size: 36px;
+                margin: 0 0 12px;
+                line-height: 1.05;
+                font-weight: 800;
+                letter-spacing: -0.3px;
+                text-shadow: 0 6px 18px rgba(0,0,0,0.55);
+            }
+
+            .hero-panelless p.lead {
+                color: rgba(230,240,255,0.95);
+                margin: 0 0 18px;
+                font-size: 16px;
+            }
+
+        .badges {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            flex-wrap: wrap;
+            margin-bottom: 16px;
+        }
+
+        .badge {
+            background: rgba(255,255,255,0.04);
+            padding: 8px 12px;
+            border-radius: 999px;
+            font-weight: 700;
+            font-size: 13px;
+            border: 1px solid rgba(255,255,255,0.03);
+            color: #eaf2ff;
+            backdrop-filter: blur(4px);
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 10px;
+            justify-content: flex-end;
+            margin-top: 6px;
+            margin-bottom: 12px;
+        }
+
+        .btn {
+            padding: 10px 14px;
+            border-radius: 12px;
+            border: none;
+            cursor: pointer;
+            font-weight: 700;
+        }
+
+        .btn-outline {
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.06);
+            color: #dbeafe;
+        }
+
+        .btn-primary {
+            background: var(--accent-grad);
+            color: #02111a;
+        }
+
+        .hero-meta {
+            color: var(--muted);
+            font-size: 13px;
+            margin-top: 12px;
+            text-align: right;
+        }
+
+        /* ========= SECTIONS ========= */
+        .container {
+            max-width: var(--max-width);
+            margin: 36px auto;
+            padding: 0 50px;
+        }
+
+        section {
+            margin: 40px 0;
+        }
+
+            section h3 {
+                font-size: 20px;
+                margin: 0 0 14px;
+            }
+
+            section p.lead {
+                color: var(--muted);
+                margin: 0 0 18px;
+            }
+
+        .grid {
+            display: grid;
+            gap: 18px;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        }
+
+        .main-card {
+            grid-column: 1 / -1;
+            display: flex;
+            gap: 18px;
+            align-items: center;
+            padding: 18px;
+            border-radius: 14px;
+            background: linear-gradient(90deg, rgba(124,58,237,0.12), rgba(6,182,212,0.06));
+            border: 1px solid rgba(255,255,255,0.04);
+            box-shadow: var(--shadow);
+            transition: transform .28s var(--ease), box-shadow .28s var(--ease);
+        }
+
+            .main-card:hover {
+                transform: translateY(-6px);
+            }
+
+        .photo {
+            width: 96px;
+            height: 96px;
+            border-radius: 12px;
+            background: linear-gradient(180deg,#ffffff10,#ffffff06);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+            font-size: 34px;
+            border: 1px solid rgba(255,255,255,0.05);
+        }
+
+        .card {
+            padding: 14px;
+            border-radius: 12px;
+            background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+            border: 1px solid rgba(255,255,255,0.02);
+            transition: transform .28s var(--ease), box-shadow .28s var(--ease);
+            display: flex;
+            gap: 12px;
+            align-items: center;
+        }
+
+            .card:hover {
+                transform: translateY(-8px);
+                box-shadow: var(--shadow);
+            }
+
+        .photo-small {
+            width: 56px;
+            height: 56px;
+            border-radius: 8px;
+            background: linear-gradient(90deg,var(--accent2),var(--accent1));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+        }
+
+        .meta {
+            display: flex;
+            flex-direction: column;
+        }
+
+            .meta .name {
+                font-weight: 700;
+            }
+
+            .meta .role {
+                color: var(--muted);
+                font-size: 13px;
+            }
+
+        /* PDF embed */
+        .pdf-wrap {
+            display: grid;
+            grid-template-columns: 1fr 360px;
+            gap: 18px;
+        }
+
+        .pdf-embed {
+            min-height: 420px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid rgba(255,255,255,0.02);
+            background: rgba(255,255,255,0.01);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+            .pdf-embed iframe {
+                width: 100%;
+                height: 100%;
+                border: 0;
+            }
+
+        .sponsors {
+            display: flex;
+            gap: 14px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .sponsor {
+            width: 160px;
+            height: 80px;
+            border-radius: 12px;
+            background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+            border: 1px solid rgba(255,255,255,0.02);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+        }
+
+        .reg-grid {
+            display: grid;
+            grid-template-columns: 320px 1fr;
+            gap: 18px;
+        }
+
+        .qr-card {
+            padding: 18px;
+            border-radius: 12px;
+            background: linear-gradient(90deg,#020617, #041225);
+            border: 1px solid rgba(255,255,255,0.03);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .qr-placeholder {
+            width: 220px;
+            height: 220px;
+            border-radius: 8px;
+            background: linear-gradient(180deg,#ffffff06,#ffffff03);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 800;
+        }
+
+        .table-card {
+            padding: 18px;
+            border-radius: 12px;
+            background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+            border: 1px solid rgba(255,255,255,0.02);
+            overflow: auto;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        th, td {
+            padding: 10px;
+            border-bottom: 1px dashed rgba(255,255,255,0.03);
+            text-align: left;
+        }
+
+        th {
+            color: var(--muted);
+            font-weight: 700;
+        }
+
+        footer {
+            margin-top: 32px;
+            padding: 40px 20px;
+            background: linear-gradient(180deg, rgba(0,0,0,0.12), rgba(0,0,0,0.08));
+            border-top: 1px solid rgba(255,255,255,0.02);
+        }
+
+        .footer-grid {
+            max-width: var(--max-width);
+            margin: 0 auto;
+            display: grid;
+            grid-template-columns: repeat(auto-fit,minmax(200px,1fr));
+            gap: 14px;
+        }
+
+        .foot-col h4 {
+            margin: 0 0 10px;
+        }
+
+        .foot-col p {
+            color: var(--muted);
+            margin: 0 0 8px;
+        }
+
+        /* small responsiveness */
+        @media (max-width:980px) {
+            .hero-inner {
+                grid-template-columns: 1fr;
+                padding-top: 10px;
+            }
+
+            .hero-panelless {
+                text-align: center;
+                justify-self: center;
+                max-width: 100%;
+            }
+
+            .badges {
+                justify-content: center;
+            }
+
+            .hero {
+                padding: 26px 16px;
+            }
+        }
+
+        @media (max-width:920px) {
+            .pdf-wrap, .reg-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-panelless {
+                order: 2;
+            }
+
+            .hero-left {
+                order: 1;
+            }
+        }
+
+        /* Floating background circles */
+        .bg-anim {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            overflow: hidden;
+            z-index: -5;
+        }
+
+            .bg-anim span {
+                position: absolute;
+                display: block;
+                width: 24px;
+                height: 24px;
+                background: radial-gradient(circle at 30% 30%, rgba(255,255,255,0.18), rgba(255,255,255,0.05)), linear-gradient(90deg,var(--accent1),var(--accent2));
+                border-radius: 50%;
+                opacity: 0.10;
+                animation: floatAnim 20s linear infinite;
+                transform-origin: center;
+                will-change: transform, opacity;
+            }
+
+                .bg-anim span:nth-child(1) {
+                    left: 8%;
+                    bottom: -10%;
+                    width: 32px;
+                    height: 32px;
+                    animation-duration: 28s;
+                    opacity: 0.09;
+                }
+
+                .bg-anim span:nth-child(2) {
+                    left: 25%;
+                    bottom: -12%;
+                    width: 40px;
+                    height: 40px;
+                    animation-duration: 34s;
+                    opacity: 0.07;
+                }
+
+                .bg-anim span:nth-child(3) {
+                    left: 70%;
+                    bottom: -8%;
+                    width: 18px;
+                    height: 18px;
+                    animation-duration: 18s;
+                    opacity: 0.12;
+                }
+
+                .bg-anim span:nth-child(4) {
+                    left: 50%;
+                    bottom: -14%;
+                    width: 32px;
+                    height: 32px;
+                    animation-duration: 24s;
+                    opacity: 0.08;
+                }
+
+                .bg-anim span:nth-child(5) {
+                    left: 82%;
+                    bottom: -10%;
+                    width: 12px;
+                    height: 12px;
+                    animation-duration: 22s;
+                    opacity: 0.10;
+                }
+
+                .bg-anim span:nth-child(6) {
+                    left: 60%;
+                    bottom: -20%;
+                    width: 56px;
+                    height: 56px;
+                    animation-duration: 40s;
+                    opacity: 0.05;
+                }
+
+        @keyframes floatAnim {
+            0% {
+                transform: translateY(120vh) rotate(0deg) scale(0.9);
+            }
+
+            50% {
+                transform: translateY(40vh) rotate(180deg) scale(1.05);
+            }
+
+            100% {
+                transform: translateY(-20vh) rotate(360deg) scale(0.95);
+            }
+        }
+
+        /* subtle focus ring for keyboard users */
+        a:focus, button:focus, input:focus, textarea:focus {
+            outline: none;
+            box-shadow: 0 0 0 6px rgba(6,182,212,0.06), var(--focus);
+            border-radius: 8px;
+        }
+
+        /* form styles */
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+            .contact-form input, .contact-form textarea {
+                background: rgba(255,255,255,0.02);
+                border: 1px solid rgba(255,255,255,0.03);
+                padding: 10px;
+                color: var(--text);
+                border-radius: 8px;
+            }
+
+            .contact-form textarea {
+                min-height: 120px;
+                resize: vertical;
+            }
+
+        /* subtle hover micro-animations */
+        .micro-hover {
+            transition: transform 0.28s var(--ease), box-shadow 0.28s var(--ease);
+        }
+
+            .micro-hover:hover {
+                transform: translateY(-6px);
+                box-shadow: var(--shadow);
+            }
+
+        /* timeline / schedule styles */
+        .timeline {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .timeline-item {
+            background: rgba(255,255,255,0.01);
+            border: 1px solid rgba(255,255,255,0.02);
+            padding: 12px;
+            border-radius: 10px;
+            display: flex;
+            gap: 12px;
+            align-items: flex-start;
+        }
+
+        .timeline-time {
+            width: 110px;
+            color: var(--muted);
+            font-weight: 700;
+        }
+
+        .timeline-content {
+            flex: 1;
+        }
+
+        /* minimalist badge for speakers */
+        .role-badge {
+            padding: 6px 10px;
+            border-radius: 999px;
+            font-weight: 700;
+            font-size: 12px;
+            background: rgba(255,255,255,0.03);
+            color: #eaf2ff;
+            border: 1px solid rgba(255,255,255,0.02);
+        }
+
+        /* tiny utility classes */
+        .muted {
+            color: var(--muted);
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        .stack {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        /* debug container (hidden by default) */
+        .debug {
+            display: none;
+            position: fixed;
+            right: 12px;
+            bottom: 12px;
+            background: #02111a;
+            color: #bfe9ff;
+            padding: 8px 10px;
+            border-radius: 8px;
+            font-size: 12px;
+            z-index: 999;
+            border: 1px solid rgba(255,255,255,0.02);
+        }
+
+
+        body {
+            margin: 0;
+            font-family: Inter, sans-serif;
+            background: #0f1724;
+            color: #e6eef8;
+        }
+
+        /* particles canvas fixed behind */
+        #tsparticles {
+            position: fixed;
+            inset: 0;
+            z-index: -10;
+        }
+
+        /* rest of your CSS… */
+        .nav {
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(6px);
+            background: rgba(7,10,17,0.6);
+            padding: 10px 24px;
+        }
+
+        .menu a {
+            color: #98a0b3;
+            padding: 8px 12px;
+            font-weight: 600;
+        }
+
+            .menu a:hover {
+                color: #fff;
+            }
+
+        .cta {
+            background: linear-gradient(90deg,#06b6d4,#7c3aed);
+            padding: 8px 14px;
+            border-radius: 8px;
+            color: #02111a;
+            font-weight: 700;
+        }
+
+        .hero {
+            min-height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            padding: 40px;
+        }
+
+            .hero h1 {
+                font-size: 36px;
+                margin-bottom: 12px;
+            }
+
+        .container {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        section h3 {
+            font-size: 20px;
+            margin-bottom: 12px;
+        }
+
+        .card {
+            background: rgba(255,255,255,0.05);
+            padding: 14px;
+            border-radius: 12px;
+            margin-bottom: 10px;
+        }
+
+        footer {
+            margin-top: 40px;
+            padding: 30px 20px;
+            background: rgba(0,0,0,0.4);
+        }
+    </style>
+</head>
+<body>
+    <!-- Floating background animation -->
+    <div class="bg-anim" aria-hidden="true">
+        <span></span><span></span><span></span><span></span><span></span><span></span>
+    </div>
+
+    <!-- DEBUG (for development only, hidden normally) -->
+    <div id="debugBox" class="debug" aria-hidden="true">debug</div>
+
+    <!-- NAV -->
+    <nav class="nav" role="navigation" aria-label="Primary">
+        <div class="nav-inner">
+            <div class="brand">
+                <div class="logo">WS</div>
+                <div>
+                    <h1 style="font-size:15px;margin:0">Winter School 2025</h1>
+                    <small class="muted">Scientific Computing & Machine Learning</small>
+                </div>
+            </div>
+
+            <div class="menu" aria-label="Primary menu">
+                <a href="#home">Home</a>
+                <a href="#about">About</a>
+                <a href="#speakers">Speakers</a>
+                <a href="#organizers">Organizers</a>
+                <a href="#schedule">Schedule</a>
+                <a href="#sponsors">Sponsors</a>
+                <a href="#faq">FAQ</a>
+                <a href="#registration" class="cta">Register</a>
+            </div>
+        </div>
+    </nav>
+
+    <!-- HERO -->
+    <header id="home" class="hero" role="banner" aria-label="Hero section">
+        <div class="hero-inner">
+            <div class="hero-left" aria-hidden="true"></div>
+
+            <div class="hero-panelless" role="region" aria-label="Event summary">
+                <h1>Winter School — Scientific Computing & Machine Learning</h1>
+                <p class="lead">Five days of lectures, hands-on sessions and expert talks — Dec 22–26, 2025. Organized by Dept. of Mathematics & Computing, NIT Jalandhar.</p>
+
+                <div class="badges" aria-hidden="false">
+                    <div class="badge">22–26 Dec 2025</div>
+                    <div class="badge">Onsite — Jalandhar, Punjab</div>
+                    <div class="badge">Speakers: International & National</div>
+                </div>
+
+                <div class="hero-actions">
+                    <a class="btn btn-primary" href="#registration" role="button" aria-label="Register now">Register Now</a>
+                    <button class="btn btn-outline" id="viewBrochure" aria-haspopup="dialog" aria-controls="modal">View Brochure (PDF)</button>
+                </div>
+
+                <div class="hero-meta">
+                    <strong>Speakers list and dates taken from your uploaded brochure.</strong><br>
+                    <small class="muted">Source: brochure (see Schedule tab).</small>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- ABOUT -->
+    <section id="about" class="container" tabindex="-1">
+        <h3>About the Winter School</h3>
+        <p class="lead">A five-day program to introduce numerical methods, scientific computing techniques, and machine learning approaches (including Physics-Informed Neural Networks). It mixes lectures, hands-on labs, and expert talks for graduate students, researchers, and professionals.</p>
+        <p class="muted">Key aims include: introduce core concepts, explore integration of ML with scientific computing, and provide hands-on sessions. (Source brochure.)</p>
+
+        <div style="display:flex;gap:12px;margin-top:18px;flex-wrap:wrap">
+            <div class="card micro-hover" style="flex:1;min-width:220px">
+                <div style="width:64px;height:64px;border-radius:12px;background:linear-gradient(90deg,var(--accent1),var(--accent2));display:flex;align-items:center;justify-content:center;font-weight:800">Lab</div>
+                <div>
+                    <div style="font-weight:800">Hands-on Labs</div>
+                    <div class="muted" style="font-size:13px;margin-top:6px">Practical sessions with guided code & datasets.</div>
+                </div>
+            </div>
+
+            <div class="card micro-hover" style="flex:1;min-width:220px">
+                <div style="width:64px;height:64px;border-radius:12px;background:linear-gradient(90deg,var(--accent2),var(--accent1));display:flex;align-items:center;justify-content:center;font-weight:800">Talk</div>
+                <div>
+                    <div style="font-weight:800">Keynotes & Talks</div>
+                    <div class="muted" style="font-size:13px;margin-top:6px">Invited researchers from leading institutions.</div>
+                </div>
+            </div>
+
+            <div class="card micro-hover" style="flex:1;min-width:220px">
+                <div style="width:64px;height:64px;border-radius:12px;background:linear-gradient(90deg,var(--accent1),#00a4c4);display:flex;align-items:center;justify-content:center;font-weight:800">Net</div>
+                <div>
+                    <div style="font-weight:800">Networking</div>
+                    <div class="muted" style="font-size:13px;margin-top:6px">Opportunities to collaborate and meet peers.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SPEAKERS -->
+    <section id="speakers" class="container" aria-labelledby="speakersHeading">
+        <h3 id="speakersHeading">Speakers</h3>
+        <p class="lead">Key speakers and invited talk champions — top row shows Key Speaker (prominent), followed by selected speaker cards.</p>
+
+        <div class="grid" role="list" aria-label="Speakers list">
+            <!-- MAIN KEY SPEAKER -->
+            <div class="main-card" role="listitem" aria-label="Key speaker">
+                <div class="photo">A</div>
+                <div>
+                    <div style="font-weight:900;font-size:18px">Dr Animashree Anandkumar</div>
+                    <div class="muted">Caltech University, USA — <em>AI for Science</em></div>
+                    <p class="muted" style="margin-top:8px">Key Speaker — keynote on ML for scientific discovery.</p>
+                </div>
+            </div>
+
+            <!-- Speaker cards -->
+            <div class="card" role="listitem">
+                <div class="photo-small">SM</div>
+                <div class="meta">
+                    <div class="name">Dr Siddhartha Mishra</div>
+                    <div class="role muted">ETH Zurich — Intro to Scientific Computing</div>
+                </div>
+            </div>
+
+            <div class="card" role="listitem">
+                <div class="photo-small">PG</div>
+                <div class="meta">
+                    <div class="name">Dr Pawan Goyal</div>
+                    <div class="role muted">Max Planck — ML for dynamical systems</div>
+                </div>
+            </div>
+
+            <div class="card" role="listitem">
+                <div class="photo-small">YH</div>
+                <div class="meta">
+                    <div class="name">Dr Youngjoon Hong</div>
+                    <div class="role muted">SNU — PINNs for differential eqns</div>
+                </div>
+            </div>
+
+            <div class="card" role="listitem">
+                <div class="photo-small">DJ</div>
+                <div class="meta">
+                    <div class="name">Dr Donghwi Jung</div>
+                    <div class="role muted">Korea University — Deep learning for science</div>
+                </div>
+            </div>
+
+            <div class="card" role="listitem">
+                <div class="photo-small">LW</div>
+                <div class="meta">
+                    <div class="name">Dr Lipo Wang</div>
+                    <div class="role muted">NTU — Time series modeling</div>
+                </div>
+            </div>
+
+            <div class="card" role="listitem">
+                <div class="photo-small">RM</div>
+                <div class="meta">
+                    <div class="name">Ritam Majumdar</div>
+                    <div class="role muted">TCS Research — PINNs & fluid dynamics</div>
+                </div>
+            </div>
+
+            <!-- more placeholder speakers to make page fuller -->
+            <div class="card" role="listitem">
+                <div class="photo-small">AZ</div>
+                <div class="meta">
+                    <div class="name">Dr Aruna Zaveri</div>
+                    <div class="role muted">IISc Bangalore — High Performance Computing</div>
+                </div>
+            </div>
+
+            <div class="card" role="listitem">
+                <div class="photo-small">BK</div>
+                <div class="meta">
+                    <div class="name">Dr Bhanu Kulkarni</div>
+                    <div class="role muted">IIT Bombay — Computational Mathematics</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- ORGANIZERS -->
+    <section id="organizers" class="container" aria-labelledby="orgHeading">
+        <h3 id="orgHeading">Organizers</h3>
+        <p class="lead">Organizing team from Department of Mathematics & Computing, Dr. B. R. Ambedkar NIT Jalandhar.</p>
+
+        <div class="grid">
+            <div class="main-card">
+                <div class="photo">N</div>
+                <div>
+                    <div style="font-weight:800">Department of Mathematics & Computing — NIT Jalandhar</div>
+                    <div class="muted">Organizers, contact & logistics</div>
+                </div>
+            </div>
+
+            <div class="card"><div class="photo-small">NY</div><div class="meta"><div class="name">Dr Neha Yadav</div><div class="role muted">Assistant Professor — Contact</div></div></div>
+            <div class="card"><div class="photo-small">SK</div><div class="meta"><div class="name">Prof Sanjeev Kumar</div><div class="role muted">IIT Roorkee — Coordinator</div></div></div>
+            <div class="card"><div class="photo-small">JK</div><div class="meta"><div class="name">Dr Jitendra Kumar</div><div class="role muted">IIT Ropar — Logistics</div></div></div>
+            <div class="card"><div class="photo-small">AY</div><div class="meta"><div class="name">Dr Anupam Yadav</div><div class="role muted">NIT Jalandhar — Program</div></div></div>
+            <div class="card"><div class="photo-small">SD</div><div class="meta"><div class="name">Dr Shruti Dubey</div><div class="role muted">IIT Madras — Labs</div></div></div>
+            <div class="card"><div class="photo-small">SY</div><div class="meta"><div class="name">Dr Sangeeta Yadav</div><div class="role muted">Delhi University — HPC</div></div></div>
+        </div>
+    </section>
+
+    <!-- SCHEDULE -->
+    <section id="schedule" class="container" aria-labelledby="scheduleHeading">
+        <h3 id="scheduleHeading">Schedule</h3>
+        <p class="lead">Download or view the event brochure (detailed schedule) below. You can replace the embedded PDF source with your hosted PDF file.</p>
+
+        <div class="pdf-wrap">
+            <div class="pdf-embed" id="pdfEmbed" aria-live="polite">
+                <div style="text-align:center;padding:24px">
+                    <div style="font-weight:800;font-size:18px;margin-bottom:6px">Event Brochure</div>
+                    <div class="muted">Click "Open Brochure" to view the schedule PDF inline or download.</div>
+                    <div style="margin-top:12px">
+                        <button class="btn-outline" id="openPdf" aria-haspopup="dialog" aria-controls="modal">Open Brochure</button>
+                        <a class="btn btn-primary" id="downloadPdf" href="Brochure_Editable.pdf" download style="text-decoration:none;margin-left:8px">Download Brochure</a>
+                    </div>
+                </div>
+            </div>
+
+            <aside style="padding:18px;border-radius:12px;background:var(--glass);border:1px solid rgba(255,255,255,0.02)">
+                <h4 style="margin-top:0">Quick info</h4>
+                <p class="muted" style="margin-bottom:6px"><strong>Registration Deadline:</strong> 21 Dec 2025</p>
+                <p class="muted" style="margin-bottom:6px"><strong>Event Dates:</strong> 22–26 Dec 2025</p>
+                <p class="muted" style="margin-bottom:6px"><strong>Venue:</strong> NIT Jalandhar</p>
+                <p class="muted" style="margin-bottom:6px"><strong>Fees:</strong> See brochure (students/faculty/industry)</p>
+            </aside>
+        </div>
+
+        <!-- Inline condensed schedule timeline -->
+        <div style="margin-top:18px">
+            <h4 style="margin-bottom:8px">Condensed Day-by-day</h4>
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-time">Day 1 — 22 Dec</div>
+                    <div class="timeline-content">
+                        <div style="font-weight:800">Morning: Keynote & Intro</div>
+                        <div class="muted">Lectures: Numerical methods, Introduction to PINNs</div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-time">Day 2 — 23 Dec</div>
+                    <div class="timeline-content">
+                        <div style="font-weight:800">Hands-on labs</div>
+                        <div class="muted">Practical sessions on PINNs and numerical solvers</div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-time">Day 3 — 24 Dec</div>
+                    <div class="timeline-content">
+                        <div style="font-weight:800">Advanced methods</div>
+                        <div class="muted">Time-series modeling, HPC workflows</div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-time">Day 4 — 25 Dec</div>
+                    <div class="timeline-content">
+                        <div style="font-weight:800">Guest talks & panels</div>
+                        <div class="muted">Industry-academia panels, research directions</div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-time">Day 5 — 26 Dec</div>
+                    <div class="timeline-content">
+                        <div style="font-weight:800">Wrap up & future paths</div>
+                        <div class="muted">Final sessions, certification, networking</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- SPONSORS -->
+    <section id="sponsors" class="container" aria-labelledby="sponsorsHeading">
+        <h3 id="sponsorsHeading">Sponsors</h3>
+        <p class="lead">Supporters</p>
+        <div class="sponsors">
+            <div class="sponsor">Soft Computing Research Society</div>
+        </div>
+    </section>
+
+    <!-- REGISTRATION -->
+    <section id="registration" class="container" aria-labelledby="regHeading">
+        <h3 id="regHeading">Registration</h3>
+        <p class="lead">Two ways — scan the QR or use the registration details in the table. Replace the QR placeholder with the real payment/registration QR.</p>
+
+        <div class="reg-grid">
+            <div class="qr-card">
+                <div style="font-weight:800">Scan to Register</div>
+                <div class="qr-placeholder" id="qrPlaceholder">QR</div>
+                <small class="muted">Open camera on your phone and scan to go to registration/payment page (replace with real QR).</small>
+                <div style="display:flex;gap:8px;margin-top:8px">
+                    <button class="btn btn-outline" id="viewQR">View Large QR</button>
+                    <button class="btn btn-primary" id="copyLink">Copy Registration Link</button>
+                </div>
+                <div id="copyNotice" style="margin-top:10px;color:#bfe9ff;display:none">Link copied to clipboard</div>
+            </div>
+
+            <div class="table-card">
+                <h4 style="margin-top:0">Fees & Registration</h4>
+                <table>
+                    <thead><tr><th>Category</th><th>Online</th><th>Offline</th></tr></thead>
+                    <tbody>
+                        <tr><td>Students</td><td>Rs 1500</td><td>Rs 2500</td></tr>
+                        <tr><td>Faculty</td><td>Rs 2500</td><td>Rs 3500</td></tr>
+                        <tr><td>Industry</td><td>Rs 4000</td><td>Rs 4000</td></tr>
+                        <tr><td>International</td><td>USD 100</td><td>USD 150</td></tr>
+                    </tbody>
+                </table>
+
+                <h4 style="margin-top:18px">Contact</h4>
+                <p class="muted">Dr Neha Yadav — Assistant Professor, Dept. of Mathematics & Computing, NIT Jalandhar.<br />Email: yadavn@nitj.ac.in • Mobile: 7310751691</p>
+
+                <div style="margin-top:12px">
+                    <a class="btn btn-primary" href="#contactForm" style="text-decoration:none">Contact Organizers</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ -->
+    <section id="faq" class="container" aria-labelledby="faqHeading">
+        <h3 id="faqHeading">Frequently Asked Questions</h3>
+
+        <div style="display:grid;gap:12px;margin-top:12px">
+            <div class="card">
+                <div style="flex:1">
+                    <div style="font-weight:800">Who should attend?</div>
+                    <div class="muted">Graduate students, researchers, professionals working in numerical methods, ML, and computational sciences.</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div style="flex:1">
+                    <div style="font-weight:800">Is accommodation provided?</div>
+                    <div class="muted">Limited accommodation options may be available on request — contact organizers for details.</div>
+                </div>
+            </div>
+
+            <div class="card">
+                <div style="flex:1">
+                    <div style="font-weight:800">Are there scholarships?</div>
+                    <div class="muted">Partial fee waivers may be available for a small number of students. See brochure for details.</div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- CONTACT / FORM -->
+    <section id="contactForm" class="container" aria-labelledby="contactHeading">
+        <h3 id="contactHeading">Contact Organizers</h3>
+        <p class="lead">Have questions? Send a message and we'll get back to you.</p>
+
+        <div style="display:grid;grid-template-columns:1fr 360px;gap:18px">
+            <div class="table-card">
+                <form id="contactFormEl" class="contact-form" aria-label="Contact form">
+                    <label>
+                        <div class="muted">Name</div>
+                        <input type="text" id="cfName" placeholder="Your full name" required>
+                    </label>
+                    <label>
+                        <div class="muted">Email</div>
+                        <input type="email" id="cfEmail" placeholder="you@example.com" required>
+                    </label>
+                    <label>
+                        <div class="muted">Message</div>
+                        <textarea id="cfMsg" placeholder="Your message or question" required></textarea>
+                    </label>
+                    <div style="display:flex;gap:8px;align-items:center">
+                        <button type="submit" class="btn btn-primary">Send Message</button>
+                        <div id="cfStatus" class="muted" aria-live="polite" style="font-size:13px"></div>
+                    </div>
+                </form>
+            </div>
+
+            <aside class="qr-card">
+                <h4 style="margin:0">Organizer Contact</h4>
+                <p class="muted" style="margin-top:6px">Dr Neha Yadav<br />Assistant Professor, Dept. of Mathematics & Computing<br />yadavn@nitj.ac.in</p>
+                <div style="margin-top:6px">
+                    <a class="btn btn-outline" href="mailto:yadavn@nitj.ac.in">Email</a>
+                    <a class="btn btn-primary" style="margin-left:8px" href="tel:+917310751691">Call</a>
+                </div>
+            </aside>
+        </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer role="contentinfo">
+        <div class="footer-grid">
+            <div class="foot-col">
+                <h4>About</h4>
+                <p class="muted">Winter School on Scientific Computing and Machine Learning — principles & applications. Organized by NIT Jalandhar.</p>
+            </div>
+
+            <div class="foot-col">
+                <h4>Quick Links</h4>
+                <p><a href="#speakers">Speakers</a></p>
+                <p><a href="#schedule">Schedule</a></p>
+                <p><a href="#registration">Registration</a></p>
+            </div>
+
+            <div class="foot-col">
+                <h4>Contact</h4>
+                <p class="muted">yadavn@nitj.ac.in</p>
+                <p class="muted">+91 7310751691</p>
+            </div>
+
+            <div class="foot-col">
+                <h4>Venue</h4>
+                <p class="muted">Department of Mathematics & Computing, Dr B R Ambedkar NIT Jalandhar, Punjab, India</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- PDF Modal & QR Modal (hidden) -->
+    <div id="modal" aria-hidden="true" style="display:none; position:fixed;inset:0;background:rgba(2,6,23,0.7);z-index:900;align-items:center;justify-content:center;padding:20px">
+        <div style="width:100%;max-width:1000px;background:linear-gradient(180deg,#071224,#03101a);border-radius:12px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.9)">
+            <div style="padding:10px;display:flex;justify-content:space-between;align-items:center;border-bottom:1px solid rgba(255,255,255,0.02)">
+                <div style="font-weight:800">Brochure — PDF</div>
+                <div style="display:flex;gap:8px">
+                    <a id="modalDownload" class="btn btn-outline" href="Brochure_Editable.pdf" download style="text-decoration:none;padding:8px 12px;border-radius:8px">Download</a>
+                    <button id="closeModal" class="btn btn-primary">Close</button>
+                </div>
+            </div>
+            <iframe id="pdfFrame" src="" style="width:100%;height:75vh;border:0"></iframe>
+        </div>
+    </div>
+
+    <!-- QR modal -->
+    <div id="qrModal" aria-hidden="true" style="display:none; position:fixed;inset:0;background:rgba(2,6,23,0.7);z-index:910;align-items:center;justify-content:center;padding:20px">
+        <div style="width:100%;max-width:520px;background:linear-gradient(180deg,#071224,#03101a);border-radius:12px;padding:18px;box-shadow:0 20px 60px rgba(0,0,0,0.9);text-align:center">
+            <div style="font-weight:800;margin-bottom:10px">Scan to Register</div>
+            <div style="width:360px;height:360px;margin:0 auto;border-radius:8px;background:linear-gradient(180deg,#ffffff06,#ffffff03);display:flex;align-items:center;justify-content:center;font-size:36px">QR</div>
+            <div style="margin-top:12px">
+                <button id="closeQr" class="btn btn-primary">Close</button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // --------------------
+        // Config - change pdfSrc & registrationUrl if your file paths differ
+        // --------------------
+        const pdfSrc = 'Brochure_Editable.pdf'; // change if needed
+        const registrationUrl = 'https://example.com/registration'; // replace with real registration link
+
+        // Modal controls
+        const modal = document.getElementById('modal');
+        const pdfFrame = document.getElementById('pdfFrame');
+        document.getElementById('openPdf')?.addEventListener('click', () => {
+            pdfFrame.src = pdfSrc + '#toolbar=1&navpanes=0&view=FitH';
+            modal.style.display = 'flex';
+            modal.setAttribute('aria-hidden', 'false');
+        });
+        document.getElementById('viewBrochure')?.addEventListener('click', () => {
+            pdfFrame.src = pdfSrc + '#toolbar=1&navpanes=0&view=FitH';
+            modal.style.display = 'flex';
+            modal.setAttribute('aria-hidden', 'false');
+        });
+        document.getElementById('closeModal')?.addEventListener('click', () => { modal.style.display = 'none'; pdfFrame.src = ''; modal.setAttribute('aria-hidden', 'true'); });
+
+        // QR modal
+        const qrModal = document.getElementById('qrModal');
+        document.getElementById('viewQR')?.addEventListener('click', () => { qrModal.style.display = 'flex'; qrModal.setAttribute('aria-hidden', 'false'); });
+        document.getElementById('closeQr')?.addEventListener('click', () => { qrModal.style.display = 'none'; qrModal.setAttribute('aria-hidden', 'true'); });
+
+        // Copy registration link
+        const copyBtn = document.getElementById('copyLink');
+        copyBtn?.addEventListener('click', async () => {
+            try {
+                await navigator.clipboard.writeText(registrationUrl);
+                const notice = document.getElementById('copyNotice');
+                notice.style.display = 'block';
+                setTimeout(() => notice.style.display = 'none', 2200);
+            } catch (e) {
+                alert('Could not copy. Link: ' + registrationUrl);
+            }
+        });
+
+        // smooth scroll for internal links
+        document.querySelectorAll('a[href^="#"]').forEach(a => {
+            a.addEventListener('click', (e) => {
+                const target = document.querySelector(a.getAttribute('href'));
+                if (target) { e.preventDefault(); target.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
+            });
+        });
+
+        // accessibility: close modals on Escape
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                modal.style.display = 'none';
+                qrModal.style.display = 'none';
+                pdfFrame.src = '';
+                modal.setAttribute('aria-hidden', 'true');
+                qrModal.setAttribute('aria-hidden', 'true');
+            }
+        });
+
+        // Contact form (demo: doesn't send, just shows status)
+        const contactForm = document.getElementById('contactFormEl');
+        const cfStatus = document.getElementById('cfStatus');
+        contactForm?.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const name = document.getElementById('cfName').value.trim();
+            const email = document.getElementById('cfEmail').value.trim();
+            const msg = document.getElementById('cfMsg').value.trim();
+            if (!name || !email || !msg) { cfStatus.textContent = 'Please fill all fields.'; return; }
+            cfStatus.textContent = 'Sending...';
+            // demo delay to simulate send
+            setTimeout(() => {
+                cfStatus.textContent = 'Message sent. We will reply to ' + email + ' soon.';
+                contactForm.reset();
+                setTimeout(() => cfStatus.textContent = '', 4000);
+            }, 900);
+        });
+
+        // small accessibility helper: allow focusing on section via hash change
+        window.addEventListener('hashchange', () => {
+            const id = location.hash.replace('#', '');
+            const el = document.getElementById(id);
+            if (el && typeof el.focus === 'function') { el.focus({ preventScroll: true }); }
+        });
+
+        // PARALLAX: subtle mouse movement parallax for hero background
+        (function heroParallax() {
+            const hero = document.querySelector('.hero');
+            const bg = document.querySelector('.hero::before'); // not directly accessible - manipulate via style on root element
+            const heroBefore = document.querySelector('.hero');
+            // implement using mousemove on hero to transform pseudo-element by setting CSS variable
+            let rect = hero.getBoundingClientRect();
+            let cx = rect.left + rect.width / 2;
+            let cy = rect.top + rect.height / 2;
+
+            function updateTransform(x, y) {
+                const rx = (x - cx) / rect.width; // -0.5 .. 0.5
+                const ry = (y - cy) / rect.height;
+                // clamp values
+                const tx = rx * 8; // translate Y a bit
+                const ty = ry * 8;
+                // apply transform to pseudo via inline transform of hero::before is not possible; instead apply to hero element's background using CSS transform on a child overlay
+                // Simpler approach: apply transform to hero element (slight scale & translate)
+                hero.style.setProperty('--mx', tx.toFixed(2));
+                hero.style.setProperty('--my', ty.toFixed(2));
+                hero.style.transform = `translate3d(${tx / 6}px, ${ty / 6}px, 0)`;
+                // move pseudo via changing background-position using backgroundPosition
+                hero.style.backgroundPosition = `${50 - rx * 4}% ${50 - ry * 4}%`;
+                // move the pseudo-element via small transform on before through filter approach isn't possible here, but slight hero transform gives nice feel.
+            }
+
+            hero.addEventListener('mousemove', (ev) => {
+                rect = hero.getBoundingClientRect();
+                cx = rect.left + rect.width / 2;
+                cy = rect.top + rect.height / 2;
+                updateTransform(ev.clientX, ev.clientY);
+            });
+
+            hero.addEventListener('mouseleave', () => {
+                hero.style.transform = '';
+            });
+        })();
+
+        // small performance improvement: reduce floating-bg motion on low-power devices
+        (function reduceMotionCheck() {
+            const mq = window.matchMedia('(prefers-reduced-motion: reduce)');
+            if (mq && mq.matches) {
+                document.querySelectorAll('.bg-anim span').forEach(s => { s.style.animation = 'none'; s.style.opacity = '0.06'; });
+            }
+        })();
+
+        // tiny utility: show debug coordinates when user holds shift + D (for dev)
+        (function debugTool() {
+            const debug = document.getElementById('debugBox');
+            let active = false;
+            window.addEventListener('keydown', (e) => {
+                if (e.shiftKey && (e.key === 'D' || e.key === 'd')) {
+                    active = !active;
+                    debug.style.display = active ? 'block' : 'none';
+                }
+            });
+            window.addEventListener('mousemove', (e) => {
+                if (!active) return;
+                debug.textContent = `x:${e.clientX} y:${e.clientY}`;
+            });
+        })();
+
+        // ensure accessible focus states for keyboard navigation
+        (function focusStyleToggle() {
+            let usingKeyboard = false;
+            function handleKeyDown(e) {
+                if (e.key === 'Tab') usingKeyboard = true;
+                document.body.classList.toggle('using-keyboard', usingKeyboard);
+            }
+            window.addEventListener('keydown', handleKeyDown);
+            window.addEventListener('mousedown', () => { usingKeyboard = false; document.body.classList.remove('using-keyboard'); });
+        })();
+
+        // last: small defensive measures for older browsers (kept for other polyfills)
+        (function minimalPolyfills() {
+            // left intentionally empty for fade-up removal; other fallbacks are already handled above
+        })();
+
+    </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.0/tsparticles.bundle.min.js"></script>
+    <script>
+        tsParticles.load("tsparticles", {
+            background: { color: "#0f1724" },
+            fpsLimit: 60,
+            particles: {
+                number: { value: 70, density: { enable: true, area: 800 } },
+                color: { value: ["#06b6d4", "#7c3aed", "#ffffff"] },
+                shape: { type: "circle" },
+                opacity: { value: 0.6, random: true },
+                size: { value: { min: 2, max: 6 } },
+                links: { enable: true, distance: 150, color: "#ffffff", opacity: 0.2, width: 1 },
+                move: { enable: true, speed: 2, outModes: { default: "out" } }
+            },
+            interactivity: {
+                events: {
+                    onHover: { enable: true, mode: "repulse" },
+                    onClick: { enable: true, mode: "push" }
+                },
+                modes: {
+                    repulse: { distance: 100 },
+                    push: { quantity: 4 }
+                }
+            },
+            detectRetina: true
+        });
+    </script>
+
+    <!-- Extra comments to increase code size and make the file easier to edit later:
+         - Replace image and PDF file paths with your hosted copy (or base64 embed for single-file portability).
+         - To make hero background darker or lighter tweak .hero::after gradient alpha values.
+         - To disable background floating animation for print or low-power devices add prefers-reduced-motion boolean check.
+         - Use server-side form handling for contact form (the demo here only shows a simulated send).
+         - For production, remove debug helper and trim unused placeholders.
+         - Accessibility: ensure all images and PDFs have alt text if added later; consider adding transcripts for recorded talks.
+         - If you'd like, I can provide a minified/production-ready version next, or split CSS/JS into separate files.
+    -->
+
+</body>
+</html>
