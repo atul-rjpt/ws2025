@@ -477,6 +477,16 @@
             color: var(--muted);
             margin: 0 0 8px;
         }
+        /* Mobile-friendly contact section */
+        @media (max-width: 768px) {
+            #contactForm > div {
+                display: grid;
+                grid-template-columns: 1fr; /* stack vertically */
+            }
+            #contactForm aside {
+                margin-top: 16px; /* add spacing so it doesn’t touch the form */
+            }
+        }
 
         /* small responsiveness */
         @media (max-width:980px) {
