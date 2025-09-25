@@ -1,11 +1,11 @@
 <script type="text/javascript">
-        var gk_isXlsx = false;
-        var gk_xlsxFileLookup = {};
-        var gk_fileData = {};
-        function filledCell(cell) {
-          return cell !== '' && cell != null;
-        }
-        function loadFileData(filename) {
+    var gk_isXlsx = false;
+    var gk_xlsxFileLookup = {};
+    var gk_fileData = {};
+    function filledCell(cell) {
+        return cell !== '' && cell != null;
+    }
+    function loadFileData(filename) {
         if (gk_isXlsx && gk_xlsxFileLookup[filename]) {
             try {
                 var workbook = XLSX.read(gk_fileData[filename], { type: 'base64' });
@@ -19,11 +19,11 @@
 
                 // Heuristic to find the header row by ignoring rows with fewer filled cells than the next row
                 var headerRowIndex = filteredData.findIndex((row, index) =>
-                  row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
+                    row.filter(filledCell).length >= filteredData[index + 1]?.filter(filledCell).length
                 );
                 // Fallback
                 if (headerRowIndex === -1 || headerRowIndex > 25) {
-                  headerRowIndex = 0;
+                    headerRowIndex = 0;
                 }
 
                 // Convert filtered JSON back to CSV
@@ -36,629 +36,735 @@
             }
         }
         return gk_fileData[filename] || "";
-        }
-        </script><!DOCTYPE html>
+    }
+</script>
+<!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Winter School on Scientific Computing & Machine Learning</title>
-  <script src="https://cdn.tailwindcss.com"></script>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
-  <style>
-    body { font-family: 'Inter', sans-serif; }
-    .animate-fade-in-up { animation: fadeInUp 0.8s ease-out forwards; opacity: 0; }
-    .delay-100 { animation-delay: 0.1s; }
-    .delay-200 { animation-delay: 0.2s; }
-    .delay-300 { animation-delay: 0.3s; }
-    @keyframes fadeInUp {
-      from { opacity: 0; transform: translateY(20px); }
-      to { opacity: 1; transform: translateY(0); }
-    }
-    .smooth-scroll { scroll-behavior: smooth; }
-    .bg-hero { background: linear-gradient(to bottom, rgba(0, 85, 102, 0.8), rgba(0, 85, 102, 0.4)), url('https://placehold.co/1920x1080/005566/ffffff?text=Winter+School'); background-size: cover; background-position: center; }
-    .profile-card { max-width: 250px; }
-    /* Enhanced button styles (excluding menu toggle) */
-    .custom-button {
-      position: relative;
-      overflow: hidden;
-      transition: all 0.4s ease-in-out;
-      padding: 0.75rem 2rem;
-      font-weight: 600;
-      font-size: 1.125rem;
-      border-radius: 9999px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      z-index: 1;
-    }
-    .custom-button::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: -100%;
-      width: 100%;
-      height: 100%;
-      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
-      transition: left 0.4s ease-in-out;
-      z-index: -1;
-    }
-    .custom-button:hover::before {
-      left: 100%;
-    }
-    .custom-button:hover {
-      transform: scale(1.05) translateY(-2px);
-      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
-      filter: brightness(1.1);
-    }
-    .custom-button.bg-coral-500 {
-      background: linear-gradient(to right, #ff6f61, #ff8a75);
-    }
-    .custom-button.bg-coral-500:hover {
-      background: linear-gradient(to right, #ff5a4a, #ff7560);
-    }
-    .custom-button.bg-teal-600 {
-      background: linear-gradient(to right, #005566, #007a8a);
-    }
-    .custom-button.bg-teal-600:hover {
-      background: linear-gradient(to right, #004750, #006674);
-    }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Winter School on Scientific Computing & Machine Learning</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+        }
+
+        .animate-fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+            opacity: 0;
+        }
+
+        .delay-100 {
+            animation-delay: 0.1s;
+        }
+
+        .delay-200 {
+            animation-delay: 0.2s;
+        }
+
+        .delay-300 {
+            animation-delay: 0.3s;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .smooth-scroll {
+            scroll-behavior: smooth;
+        }
+
+        .bg-hero {
+            background: linear-gradient(to bottom, rgba(0, 85, 102, 0.8), rgba(0, 85, 102, 0.4)), url('https://placehold.co/1920x1080/005566/ffffff?text=Winter+School');
+            background-size: cover;
+            background-position: center;
+        }
+
+        .profile-card {
+            max-width: 250px;
+        }
+        /* Enhanced button styles (excluding menu toggle) */
+        .custom-button {
+            position: relative;
+            overflow: hidden;
+            transition: all 0.4s ease-in-out;
+            padding: 0.75rem 2rem;
+            font-weight: 600;
+            font-size: 1.125rem;
+            border-radius: 9999px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+        }
+
+            .custom-button::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+                transition: left 0.4s ease-in-out;
+                z-index: -1;
+            }
+
+            .custom-button:hover::before {
+                left: 100%;
+            }
+
+            .custom-button:hover {
+                transform: scale(1.05) translateY(-2px);
+                box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+                filter: brightness(1.1);
+            }
+
+            .custom-button.bg-coral-500 {
+                background: linear-gradient(to right, #ff6f61, #ff8a75);
+            }
+
+                .custom-button.bg-coral-500:hover {
+                    background: linear-gradient(to right, #ff5a4a, #ff7560);
+                }
+
+            .custom-button.bg-teal-600 {
+                background: linear-gradient(to right, #005566, #007a8a);
+            }
+
+                .custom-button.bg-teal-600:hover {
+                    background: linear-gradient(to right, #004750, #006674);
+                }
+    </style>
 </head>
 <body class="bg-gray-100 smooth-scroll">
-  <!-- Header -->
-  <header class="bg-gradient-to-r from-teal-700 to-teal-800 text-white shadow-lg sticky top-0 z-50">
-    <div class="container mx-auto flex flex-col md:flex-row justify-between items-center py-4 px-4 md:px-8">
-      <div class="flex items-center justify-between w-full md:w-auto">
-        <img src="img/nitj.png" alt="Winter School Logo" class="h-10 transition-transform duration-300 hover:scale-110 cursor-pointer" onclick="showSection('home')">
-        <button onclick="toggleMenu()" class="md:hidden text-white focus:outline-none focus:ring-2 focus:ring-white rounded-lg p-2" aria-expanded="false" aria-label="Toggle navigation menu">
-          <svg id="menu-icon" class="w-6 h-6 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
-          </svg>
-        </button>
-      </div>
-      <nav id="nav-menu" class="w-full md:w-auto md:block hidden transition-all duration-300 ease-in-out">
-        <ul class="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-8 items-center text-lg">
-          <li><button onclick="showSection('home')" class="p-2 rounded-lg transition duration-300 font-semibold text-gray-200 hover:text-white hover:bg-teal-700 nav-link" data-section="home">Home</button></li>
-          <li><button onclick="showSection('about')" class="p-2 rounded-lg transition duration-300 font-semibold text-gray-200 hover:text-white hover:bg-teal-700 nav-link" data-section="about">About</button></li>
-          <li><button onclick="showSection('speaker')" class="p-2 rounded-lg transition duration-300 font-semibold text-gray-200 hover:text-white hover:bg-teal-700 nav-link" data-section="speaker">Speaker</button></li>
-          <li><button onclick="showSection('registration')" class="p-2 rounded-lg transition duration-300 font-semibold text-gray-200 hover:text-white hover:bg-teal-700 nav-link" data-section="registration">Registration</button></li>
-          <!-- <li><button onclick="showSection('schedule')" class="p-2 rounded-lg transition duration-300 font-semibold text-gray-200 hover:text-white hover:bg-teal-700 nav-link" data-section="schedule">Schedule</button></li> -->
-          <li><button onclick="showSection('organiser')" class="p-2 rounded-lg transition duration-300 font-semibold text-gray-200 hover:text-white hover:bg-teal-700 nav-link" data-section="organiser">Organiser</button></li>
-        </ul>
-      </nav>
-    </div>
-  </header>
-
-  <!-- Main Content -->
-  <main class="min-h-screen">
-    <!-- Home Section -->
-    <section id="home" class="bg-hero min-h-screen flex items-center text-white">
-      <div class="container mx-auto p-4 md:p-8">
-        <div class="flex flex-col lg:flex-row items-center lg:items-start space-y-8 lg:space-y-0 lg:space-x-12">
-          <div class="lg:w-1/2 text-center lg:text-left animate-fade-in-up">
-            <h1 class="text-4xl md:text-6xl font-extrabold text-coral-400 mb-4">Winter School — Scientific Computing & Machine Learning</h1>
-            <h2 class="text-xl md:text-3xl font-light mb-6">Five Days of Lectures, Hands-on Sessions, and Expert Talks</h2>
-            <p class="text-lg mb-4 max-w-lg mx-auto lg:mx-0">Join us from <span class="font-bold">Dec 22–26, 2025</span> at NIT Jalandhar, Punjab, for an immersive onsite program organized by the Dept. of Mathematics & Computing. Learn from international and national speakers.</p>
-            <p class="text-lg mb-8 max-w-lg mx-auto lg:mx-0">Explore numerical methods, scientific computing, and machine learning, including Physics-Informed Neural Networks, through a blend of lectures, labs, and networking opportunities.</p>
-            <div class="flex flex-col sm:flex-row sm:space-x-4 space-y-4 sm:space-y-0 justify-center lg:justify-start">
-              <button onclick="showSection('registration')" class="custom-button bg-coral-500 text-white inline-block">Register Now</button>
-              <a href="img/brochure.pdf" target="_blank" class="custom-button bg-teal-600 text-white inline-block">View Brochure (PDF)</a>
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-teal-700 to-teal-800 text-white shadow-lg sticky top-0 z-50">
+        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center py-4 px-4 md:px-8">
+            <div class="flex items-center justify-between w-full md:w-auto">
+                <img src="img/scml.jpg" alt="Winter School Logo" class="h-10 transition-transform duration-300 hover:scale-110 cursor-pointer" onclick="showSection('home')">
+                <span style="font-size: 1.5em; font-weight: bold; margin-left: 10px;">SCML-2025</span>
+                <button onclick="toggleMenu()" class="md:hidden text-white focus:outline-none focus:ring-2 focus:ring-white rounded-lg p-2" aria-expanded="false" aria-label="Toggle navigation menu">
+                    <svg id="menu-icon" class="w-6 h-6 transform transition-transform duration-300" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>
+                    </svg>
+                </button>
             </div>
-          </div>
-          <div class="lg:w-1/2 text-center animate-fade-in-up delay-200">
-            <div class="relative inline-block">
-              <img src="https://placehold.co/600x400/005566/ff6f61?text=Winter+School" alt="Winter School" class="rounded-3xl shadow-xl transform transition-transform duration-500 hover:scale-105">
-              <div class="absolute -bottom-10 left-1/2 -translate-x-1/2 flex space-x-4">
-                <div class="bg-white bg-opacity-30 backdrop-blur-lg rounded-xl p-4 text-center text-white font-bold shadow-lg transform transition-transform duration-500 hover:scale-110">
-                  <h4 class="text-2xl text-coral-400">10+</h4>
-                  <span class="text-sm">Expert Speakers</span>
-                </div>
-                <div class="bg-white bg-opacity-30 backdrop-blur-lg rounded-xl p-4 text-center text-white font-bold shadow-lg transform transition-transform duration-500 hover:scale-110">
-                  <h4 class="text-2xl text-coral-400">15</h4>
-                  <span class="text-sm">Interactive Sessions</span>
-                </div>
-                <div class="bg-white bg-opacity-30 backdrop-blur-lg rounded-xl p-4 text-center text-white font-bold shadow-lg transform transition-transform duration-500 hover:scale-110">
-                  <h4 class="text-2xl text-coral-400">100+</h4>
-                  <span class="text-sm">Attendees</span>
-                </div>
-              </div>
-            </div>
-          </div>
+            <nav id="nav-menu" class="w-full md:w-auto md:block hidden transition-all duration-300 ease-in-out">
+                <ul class="flex flex-col md:flex-row space-y-2 md:space-y-0 md:space-x-8 items-center text-lg">
+                    <li><button onclick="showSection('home')" class="p-2 rounded-lg transition duration-300 font-semibold text-gray-200 hover:text-white hover:bg-teal-700 nav-link" data-section="home">Home</button></li>
+                    <li><button onclick="showSection('about')" class="p-2 rounded-lg transition duration-300 font-semibold text-gray-200 hover:text-white hover:bg-teal-700 nav-link" data-section="about">About</button></li>
+                    <li><button onclick="showSection('speaker')" class="p-2 rounded-lg transition duration-300 font-semibold text-gray-200 hover:text-white hover:bg-teal-700 nav-link" data-section="speaker">Speaker</button></li>
+                    <li><button onclick="showSection('registration')" class="p-2 rounded-lg transition duration-300 font-semibold text-gray-200 hover:text-white hover:bg-teal-700 nav-link" data-section="registration">Registration</button></li>
+                    <!-- <li><button onclick="showSection('schedule')" class="p-2 rounded-lg transition duration-300 font-semibold text-gray-200 hover:text-white hover:bg-teal-700 nav-link" data-section="schedule">Schedule</button></li> -->
+                    <li><button onclick="showSection('organiser')" class="p-2 rounded-lg transition duration-300 font-semibold text-gray-200 hover:text-white hover:bg-teal-700 nav-link" data-section="organiser">Organiser</button></li>
+                </ul>
+            </nav>
         </div>
-      </div>
-    </section>
+    </header>
 
-    <!-- About Section -->
-    <section id="about" class="bg-white min-h-screen py-16 hidden">
-      <div class="container mx-auto p-4 md:p-8">
-        <div class="text-center animate-fade-in-up">
-          <h1 class="text-4xl md:text-5xl font-extrabold text-teal-800 mb-4">About the Winter School</h1>
-          <div class="w-16 h-1 bg-coral-500 rounded mb-6 mx-auto"></div>
-          <p class="text-lg text-gray-700 max-w-2xl mx-auto text-justify">The Winter School on Scientific Computing and
-                    Machine Learning: Principles and Applications aims to equip participants with a deep understanding of computational techniques
-                    and data-driven methods for solving complex scientific and engineering problems. Over five days, the program will:<br>
-                    <b>Introduce Core Concepts –</b> Provide foundational knowledge in scientific computing, numerical methods, and machine learning
-                    algorithms, emphasizing their relevance in modeling and simulation. <br>
-                    <b>Explore Integration Strategies –</b> Discuss the synergy between machine learning and traditional scientific computing approaches,
-                    including physics-informed neural networks (PINNs), surrogate modeling, and data assimilation.<br>
-                    <b>Hands-on Experience –</b> Facilitate interactive sessions, coding labs, and real-world applications to help participants implement
-                    computational algorithms and ML models using Python and scientific libraries. This Winter School is designed for graduate
-                    students, researchers, and professionals aiming to enhance their computational skills and apply machine learning to real-world scientific challenges 
-            </p>
-          </div>
-        <div class="mt-12 flex flex-col lg:flex-row items-center space-y-8 lg:space-y-0 lg:space-x-12">
-          <div class="lg:w-1/2 text-center lg:text-left animate-fade-in-up delay-200">
-            <h2 class="text-2xl font-bold text-teal-700 mb-4">Key Aims</h2>
-            <ul class="text-gray-600 space-y-4">
-              <li><i class="fas fa-check-circle text-coral-500 mr-2"></i>Introduce core concepts of numerical methods and scientific computing.</li>
-              <li><i class="fas fa-check-circle text-coral-500 mr-2"></i>Explore the integration of machine learning with scientific computing.</li>
-              <li><i class="fas fa-check-circle text-coral-500 mr-2"></i>Provide hands-on sessions with guided code and datasets.</li>
-            </ul>
-            <button onclick="showSection('registration')" class="custom-button bg-coral-500 text-white inline-block mt-8">Join Us Today</button>
-          </div>
-          <div class="lg:w-1/2 grid grid-cols-1 md:grid-cols-3 gap-6 animate-fade-in-up">
-            <div class="bg-gray-50 rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
-              <i class="fas fa-laptop-code text-coral-500 text-3xl mb-4"></i>
-              <h3 class="text-xl font-bold text-teal-700 mb-2">Hands-on Labs</h3>
-              <p class="text-gray-600 text-sm">Practical sessions with guided code & datasets.</p>
-            </div>
-            <div class="bg-gray-50 rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
-              <i class="fas fa-microphone-alt text-coral-500 text-3xl mb-4"></i>
-              <h3 class="text-xl font-bold text-teal-700 mb-2">Keynotes & Talks</h3>
-              <p class="text-gray-600 text-sm">Invited researchers from leading institutions.</p>
-            </div>
-            <div class="bg-gray-50 rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
-              <i class="fas fa-users text-coral-500 text-3xl mb-4"></i>
-              <h3 class="text-xl font-bold text-teal-700 mb-2">Networking</h3>
-              <p class="text-gray-600 text-sm">Opportunities to collaborate and meet peers.</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
+    <!-- Main Content -->
+    <main class="min-h-screen">
+        <!-- Home Section -->
+        <section id="home" class="bg-hero min-h-screen flex items-center text-white">
+            <div class="container mx-auto p-4 md:p-8">
+                <div class="flex flex-col lg:flex-row items-center lg:items-start space-y-8 lg:space-y-0 lg:space-x-12">
+                    <div class="lg:w-1/2 text-center lg:text-left animate-fade-in-up">
+                        <h1 class="text-4xl md:text-6xl font-extrabold text-coral-400 mb-4">Winter School — Scientific Computing & Machine Learning</h1>
 
-    <!-- Speaker Section -->
-    <section id="speaker" class="bg-white min-h-screen py-16 hidden">
-      <div class="container mx-auto p-4 md:p-8">
-        <div class="text-center animate-fade-in-up">
-          <h1 class="text-4xl md:text-5xl font-extrabold text-teal-800 mb-4">Meet Our Speakers</h1>
-          <div class="w-16 h-1 bg-coral-500 rounded mb-6 mx-auto"></div>
-          <p class="text-lg text-gray-700 max-w-2xl mx-auto">Learn from the best in the industry with our distinguished speakers who bring years of expertise and innovation to the workshop.</p>
-        </div>
-        <div class="mt-12 flex flex-wrap gap-4 justify-center">
-            <!-- Speaker 1 -->
-            <div class="bg-gray-50 rounded-xl p-4 shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 animate-fade-in-up delay-200 profile-card text-center">
-                <!-- Image -->
-                <img src="img/ameya.jpg" alt="Prof. Ameya D. Jagtap" class="w-20 h-20 mx-auto rounded-full object-cover mb-3">
-                <!-- Name with link -->
-                <h3 class="text-lg font-bold text-teal-700">
-                    <a href="https://www.wpi.edu/people/faculty/ajagtap" target="_blank" class="hover:underline">
-                        Prof. Ameya D. Jagtap
-                    </a>
-                </h3>
-                <p class="text-sm text-gray-600">
-                    Worcester Polytechnic Institute, USA
-                </p>
-            </div>
+                        <h2 class="text-xl md:text-3xl font-light mb-6">Five Days of Lectures, Hands-on Sessions, and Expert Talks</h2>
+                        <p class="text-lg mb-4 max-w-lg mx-auto lg:mx-0">Join us from <span class="font-bold">Dec 22–26, 2025</span> at NIT Jalandhar, Punjab, for an immersive onsite program organized by the Dept. of Mathematics & Computing. Learn from international and national speakers.</p>
+                        <p class="text-lg mb-8 max-w-lg mx-auto lg:mx-0">Explore numerical methods, scientific computing, and machine learning, including Physics-Informed Neural Networks, through a blend of lectures, labs, and networking opportunities.</p>
+                        <div class="flex flex-col sm:flex-row sm:space-x-4 space-y-4 sm:space-y-0 justify-center lg:justify-start">
+                            <button onclick="showSection('registration')" class="custom-button bg-coral-500 text-white inline-block">Register Now</button>
+                            <a href="img/brochure.pdf" target="_blank" class="custom-button bg-teal-600 text-white inline-block">View Brochure (PDF)</a>
+                        </div>
+                    </div>
+                    <div class="lg:w-1/2 text-center animate-fade-in-up delay-200">
+                        <div class="relative inline-block">
+                            <img src="https://placehold.co/600x400/005566/ff6f61?text=Winter+School" alt="Winter School" class="rounded-3xl shadow-xl transform transition-transform duration-500 hover:scale-105">
+                            <div class="absolute -bottom-10 left-1/2 -translate-x-1/2 flex space-x-4">
+                                <div class="bg-white bg-opacity-30 backdrop-blur-lg rounded-xl p-4 text-center text-white font-bold shadow-lg transform transition-transform duration-500 hover:scale-110">
+                                    <h4 class="text-2xl text-coral-400">10+</h4>
+                                    <span class="text-sm">Expert Speakers</span>
+                                </div>
+                                <div class="bg-white bg-opacity-30 backdrop-blur-lg rounded-xl p-4 text-center text-white font-bold shadow-lg transform transition-transform duration-500 hover:scale-110">
+                                    <h4 class="text-2xl text-coral-400">15</h4>
+                                    <span class="text-sm">Interactive Sessions</span>
+                                </div>
+                                <div class="bg-white bg-opacity-30 backdrop-blur-lg rounded-xl p-4 text-center text-white font-bold shadow-lg transform transition-transform duration-500 hover:scale-110">
+                                    <h4 class="text-2xl text-coral-400">100+</h4>
+                                    <span class="text-sm">Attendees</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
 
-            <!-- Speaker 2 -->
-            <div class="bg-gray-50 rounded-xl p-4 shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 animate-fade-in-up delay-200 profile-card text-center">
-                <!-- Image -->
-                <img src="img/souvik.jpeg" alt="Dr. Souvik Chakraborty" class="w-20 h-20 mx-auto rounded-full object-cover mb-3">
-                <!-- Name with link -->
-                <h3 class="text-lg font-bold text-teal-700">
-                    <a href="https://scholar.google.com/citations?user=CoYoAQEAAAAJ&hl=en" target="_blank" class="hover:underline">
-                        Dr. Souvik Chakraborty
-                    </a>
-                </h3>
-                <p class="text-sm text-gray-600">IIT Delhi</p>
+                <!-- Featured Speaker Profile -->
+                <div class="mt-12 text-center animate-fade-in-up delay-300">
+                    <h2 class="text-4xl md:text-6xl font-extrabold text-coral-400 mb-4">Our Prominent Speaker</h2>
+                    <div class="mx-auto featured-speaker-card bg-gray-50 rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2" style="width:50%" ;>
+                        <div class="flex flex-col items-center space-y-4">
+                            <img src="img/ameya.jpg" alt="Prof. Ameya D. Jagtap" class="w-20 h-20 mx-auto rounded-full object-cover mb-3">
+                            <div>
+                                <h3 class="text-lg font-bold text-teal-700">
+                                    <a href="https://www.wpi.edu/people/faculty/ajagtap" target="_blank" class="hover:underline">
+                                        Prof. Ameya D. Jagtap
+                                    </a>
+                                </h3>
+                                <p class="text-sm text-gray-600">
+                                    Worcester Polytechnic Institute, USA
+                                </p>
+                            </div>
+                            <p class="text-sm text-gray-700 max-w-md">Assistant Professor of Applied Mathematics at Brown University for three and a half years</p>
+                            <div class="flex space-x-2">
+                                <a href="#" class="text-teal-600 hover:text-teal-800"><i class="fab fa-linkedin"></i></a>
+                                <a href="#" class="text-teal-600 hover:text-teal-800"><i class="fab fa-twitter"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="flex flex-col sm:flex-row sm:space-x-4 space-y-4 sm:space-y-0 justify-center lg:justify-start">
+                        <button onclick="showSection('speaker')" class="custom-button bg-coral-500 text-white inline-block" data-section="speaker">Know more Speakers...</button>
+
+                    </div>
+                </div>
             </div>
-            <!-- Speaker 3 -->
-            <div class="bg-gray-50 rounded-xl p-4 shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 animate-fade-in-up delay-200 profile-card text-center">
-                <!-- Image -->
-                <img src="img/nishchal.jpeg" alt="Prof. Nischal Verma" class="w-20 h-20 mx-auto rounded-full object-cover mb-3">
-                <!-- Name with link -->
-                <h3 class="text-lg font-bold text-teal-700">
-                    <a href="https://www.iitk.ac.in/idea/" target="_blank" class="hover:underline">
-                        Prof. Nischal Verma
-                    </a>
-                </h3>
-                <p class="text-sm text-gray-600">IIT Kanpur</p>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="bg-white min-h-screen py-16 hidden">
+            <div class="container mx-auto p-4 md:p-8">
+                <div class="text-center animate-fade-in-up">
+                    <h1 class="text-4xl md:text-5xl font-extrabold text-teal-800 mb-4">About the Winter School</h1>
+                    <div class="w-16 h-1 bg-coral-500 rounded mb-6 mx-auto"></div>
+                    <p class="text-lg text-gray-700 max-w-2xl mx-auto text-justify">
+                        The Winter School on Scientific Computing and
+                        Machine Learning: Principles and Applications aims to equip participants with a deep understanding of computational techniques
+                        and data-driven methods for solving complex scientific and engineering problems. Over five days, the program will:<br>
+                        <b>Introduce Core Concepts –</b> Provide foundational knowledge in scientific computing, numerical methods, and machine learning
+                        algorithms, emphasizing their relevance in modeling and simulation. <br>
+                        <b>Explore Integration Strategies –</b> Discuss the synergy between machine learning and traditional scientific computing approaches,
+                        including physics-informed neural networks (PINNs), surrogate modeling, and data assimilation.<br>
+                        <b>Hands-on Experience –</b> Facilitate interactive sessions, coding labs, and real-world applications to help participants implement
+                        computational algorithms and ML models using Python and scientific libraries. This Winter School is designed for graduate
+                        students, researchers, and professionals aiming to enhance their computational skills and apply machine learning to real-world scientific challenges
+                    </p>
+                </div>
+                <div class="mt-12 flex flex-col lg:flex-row items-center space-y-8 lg:space-y-0 lg:space-x-12">
+                    <div class="lg:w-1/2 text-center lg:text-left animate-fade-in-up delay-200">
+                        <h2 class="text-2xl font-bold text-teal-700 mb-4">Key Aims</h2>
+                        <ul class="text-gray-600 space-y-4">
+                            <li><i class="fas fa-check-circle text-coral-500 mr-2"></i>Introduce core concepts of numerical methods and scientific computing.</li>
+                            <li><i class="fas fa-check-circle text-coral-500 mr-2"></i>Explore the integration of machine learning with scientific computing.</li>
+                            <li><i class="fas fa-check-circle text-coral-500 mr-2"></i>Provide hands-on sessions with guided code and datasets.</li>
+                        </ul>
+                        <button onclick="showSection('registration')" class="custom-button bg-coral-500 text-white inline-block mt-8">Join Us Today</button>
+                    </div>
+                    <div class="lg:w-1/2 grid grid-cols-1 md:grid-cols-3 gap-6 animate-fade-in-up">
+                        <div class="bg-gray-50 rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+                            <i class="fas fa-laptop-code text-coral-500 text-3xl mb-4"></i>
+                            <h3 class="text-xl font-bold text-teal-700 mb-2">Hands-on Labs</h3>
+                            <p class="text-gray-600 text-sm">Practical sessions with guided code & datasets.</p>
+                        </div>
+                        <div class="bg-gray-50 rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+                            <i class="fas fa-microphone-alt text-coral-500 text-3xl mb-4"></i>
+                            <h3 class="text-xl font-bold text-teal-700 mb-2">Keynotes & Talks</h3>
+                            <p class="text-gray-600 text-sm">Invited researchers from leading institutions.</p>
+                        </div>
+                        <div class="bg-gray-50 rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2">
+                            <i class="fas fa-users text-coral-500 text-3xl mb-4"></i>
+                            <h3 class="text-xl font-bold text-teal-700 mb-2">Networking</h3>
+                            <p class="text-gray-600 text-sm">Opportunities to collaborate and meet peers.</p>
+                        </div>
+                    </div>
+                </div>
             </div>
-            <!-- Speaker 4 -->
-            <div class="bg-gray-50 rounded-xl p-4 shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 animate-fade-in-up delay-200 profile-card text-center">
-                <!-- Image -->
-                <img src="img/jitendra.jpg" alt="Prof. Jitendra Kumar" class="w-20 h-20 mx-auto rounded-full object-cover mb-3">
-                <!-- Name with link -->
-                <h3 class="text-lg font-bold text-teal-700">
-                    <a href="https://www.iitrpr.ac.in/jkumar/" target="_blank" class="hover:underline">
-                        Prof. Jitendra Kumar
-                    </a>
-                </h3>
-                <p class="text-sm text-gray-600">IIT Ropar</p>
+        </section>
+
+        <!-- Speaker Section -->
+        <section id="speaker" class="bg-white min-h-screen py-16 hidden">
+            <div class="container mx-auto p-4 md:p-8">
+                <div class="text-center animate-fade-in-up">
+                    <h1 class="text-4xl md:text-5xl font-extrabold text-teal-800 mb-4">Our Speakers</h1>
+                    <div class="w-16 h-1 bg-coral-500 rounded mb-6 mx-auto"></div>
+                    <p class="text-lg text-gray-700 max-w-2xl mx-auto">Learn from the best in the industry with our distinguished speakers who bring years of expertise and innovation to the workshop.</p>
+                </div>
+                <div class="mt-12 flex flex-wrap gap-4 justify-center">
+                    <!-- Speaker 1 -->
+                    <div class="bg-gray-50 rounded-xl p-4 shadow-md transition-all duration-300 transform hover:-translate-y-2 hover:scale-105 hover:shadow-xl text-center">
+                        <!-- Image -->
+                        <img src="img/ameya.jpg" alt="Prof. Ameya D. Jagtap" class="w-20 h-20 mx-auto rounded-full object-cover mb-3">
+                        <!-- Name with link -->
+                        <h3 class="text-lg font-bold text-teal-700">
+                            <a href="https://www.wpi.edu/people/faculty/ajagtap" target="_blank" class="hover:underline">
+                                Prof. Ameya D. Jagtap
+                            </a>
+                        </h3>
+                        <p class="text-sm text-gray-600">
+                            Worcester Polytechnic Institute, USA
+                        </p>
+                    </div>
+
+                    <!-- Speaker 2 -->
+                    <div class="bg-gray-50 rounded-xl p-4 shadow-md transition-all duration-300 transform hover:-translate-y-2 hover:scale-105 hover:shadow-xl text-center">
+                        <!-- Image -->
+                        <img src="img/souvik.jpeg" alt="Dr. Souvik Chakraborty" class="w-20 h-20 mx-auto rounded-full object-cover mb-3">
+                        <!-- Name with link -->
+                        <h3 class="text-lg font-bold text-teal-700">
+                            <a href="https://scholar.google.com/citations?user=CoYoAQEAAAAJ&hl=en" target="_blank" class="hover:underline">
+                                Dr. Souvik Chakraborty
+                            </a>
+                        </h3>
+                        <p class="text-sm text-gray-600">IIT Delhi</p>
+                    </div>
+                    <!-- Speaker 3 -->
+                    <div class="bg-gray-50 rounded-xl p-4 shadow-md transition-all duration-300 transform hover:-translate-y-2 hover:scale-105 hover:shadow-xl text-center">
+                        <!-- Image -->
+                        <img src="img/nishchal.jpeg" alt="Prof. Nischal Verma" class="w-20 h-20 mx-auto rounded-full object-cover mb-3">
+                        <!-- Name with link -->
+                        <h3 class="text-lg font-bold text-teal-700">
+                            <a href="https://www.iitk.ac.in/idea/" target="_blank" class="hover:underline">
+                                Prof. Nischal Verma
+                            </a>
+                        </h3>
+                        <p class="text-sm text-gray-600">IIT Kanpur</p>
+                    </div>
+                    <!-- Speaker 4 -->
+                    <div class="bg-gray-50 rounded-xl p-4 shadow-md transition-all duration-300 transform hover:-translate-y-2 hover:scale-105 hover:shadow-xl text-center">
+                        <!-- Image -->
+                        <img src="img/jitendra.jpg" alt="Prof. Jitendra Kumar" class="w-20 h-20 mx-auto rounded-full object-cover mb-3">
+                        <!-- Name with link -->
+                        <h3 class="text-lg font-bold text-teal-700">
+                            <a href="https://www.iitrpr.ac.in/jkumar/" target="_blank" class="hover:underline">
+                                Prof. Jitendra Kumar
+                            </a>
+                        </h3>
+                        <p class="text-sm text-gray-600">IIT Ropar</p>
+                    </div>
+                    <!-- Speaker 5 -->
+                    <div class="bg-gray-50 rounded-xl p-4 shadow-md transition-all duration-300 transform hover:-translate-y-2 hover:scale-105 hover:shadow-xl text-center">
+                        <!-- Image -->
+                        <img src="img/sanjeev.jpg" alt=" Prof. Sanjeev Kumar" class="w-20 h-20 mx-auto rounded-full object-cover mb-3">
+                        <!-- Name with link -->
+                        <h3 class="text-lg font-bold text-teal-700">
+                            <a href="https://www.iitr.ac.in/~MA/Malikfma" target="_blank" class="hover:underline">
+                                Prof. Sanjeev Kumar
+                            </a>
+                        </h3>
+                        <p class="text-sm text-gray-600">IIT Roorkee</p>
+                    </div>
+                    <!-- Speaker 6 -->
+                    <div class="bg-gray-50 rounded-xl p-4 shadow-md transition-all duration-300 transform hover:-translate-y-2 hover:scale-105 hover:shadow-xl text-center">
+                        <!-- Image -->
+                        <img src="img/prasanta.jpg" alt="Dr. Prasanta Kumar Ghosh" class="w-20 h-20 mx-auto rounded-full object-cover mb-3">
+                        <!-- Name with link -->
+                        <h3 class="text-lg font-bold text-teal-700">
+                            <a href="https://eecs.iisc.ac.in/people/prasanta-kumar-ghosh/" target="_blank" class="hover:underline">
+                                Dr. Prasanta Kumar Ghosh
+                            </a>
+                        </h3>
+                        <p class="text-sm text-gray-600">IISc Bangalore</p>
+                    </div>
+                    <!-- Speaker 7 -->
+                    <div class="bg-gray-50 rounded-xl p-4 shadow-md transition-all duration-300 transform hover:-translate-y-2 hover:scale-105 hover:shadow-xl text-center">
+                        <!-- Image -->
+                        <img src="img/sangeeta.png" alt="Dr. Sangeeta Yadav" class="w-20 h-20 mx-auto rounded-full object-cover mb-3">
+                        <!-- Name with link -->
+                        <h3 class="text-lg font-bold text-teal-700">
+                            <a href="https://beta.du.ac.in/dr-sangeeta-yadav/" target="_blank" class="hover:underline">
+                                Dr. Sangeeta Yadav
+                            </a>
+                        </h3>
+                        <p class="text-sm text-gray-600">University of Delhi</p>
+                    </div>
+                    <!-- Speaker 8 -->
+                    <div class="bg-gray-50 rounded-xl p-4 shadow-md transition-all duration-300 transform hover:-translate-y-2 hover:scale-105 hover:shadow-xl text-center">
+                        <!-- Image -->
+                        <img src="img/kshitiji.jpeg" alt=" Mr. Kshitij Parwani" class="w-20 h-20 mx-auto rounded-full object-cover mb-3">
+                        <!-- Name with link -->
+                        <h3 class="text-lg font-bold text-teal-700">
+                            <a href="https://in.linkedin.com/in/kshitij-parwani" target="_blank" class="hover:underline">
+                                Mr. Kshitij Parwani
+                            </a>
+                        </h3>
+                        <p class="text-sm text-gray-600">Amazon Pune</p>
+                    </div>
+                    <!-- Speaker 9 -->
+                    <div class="bg-gray-50 rounded-xl p-4 shadow-md transition-all duration-300 transform hover:-translate-y-2 hover:scale-105 hover:shadow-xl text-center">
+                        <!-- Image -->
+                        <img src="img/anupam.jpeg" alt="Dr. Anupam Yadav" class="w-20 h-20 mx-auto rounded-full object-cover mb-3">
+                        <!-- Name with link -->
+                        <h3 class="text-lg font-bold text-teal-700">
+                            <a href="https://departments.nitj.ac.in/dept/ma/Faculty/6430446b38bff038a7808524" target="_blank" class="hover:underline">
+                                Dr. Anupam Yadav
+                            </a>
+                        </h3>
+                        <p class="text-sm text-gray-600">NIT Jalandhar</p>
+                    </div>
+                    <!-- Speaker 10 -->
+                    <div class="bg-gray-50 rounded-xl p-4 shadow-md transition-all duration-300 transform hover:-translate-y-2 hover:scale-105 hover:shadow-xl text-center">
+                        <!-- Image -->
+                        <img src="img/neha.jpg" alt=" Dr. Neha Yadav" class="w-20 h-20 mx-auto rounded-full object-cover mb-3">
+                        <!-- Name with link -->
+                        <h3 class="text-lg font-bold text-teal-700">
+                            <a href="https://departments.nitj.ac.in/dept/ma/Faculty/6430447238bff038a7808d4c" target="_blank" class="hover:underline">
+                                Dr. Neha Yadav
+                            </a>
+                        </h3>
+                        <p class="text-sm text-gray-600">NIT Jalandhar</p>
+                    </div>
+                    <!-- Speaker # -->
+                    <!-- <div class="bg-gray-50 rounded-xl p-4 shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 animate-fade-in-up delay-200 profile-card">
+                      <div class="flex items-center space-x-3 mb-3">
+                        <img src="https://placehold.co/60x60/ff6f61/ffffff?text=MS" alt="placeholder" class="w-14 h-14 rounded-full object-cover">
+                        <div>
+                          <h3 class="text-lg font-bold text-teal-700">Placeholder</h3>
+                          <p class="text-sm text-gray-600">placeholder</p>
+                        </div>
+                      </div>
+                      <p class="text-sm text-gray-700 mb-3">Placeholder</p>
+                      <div class="flex space-x-2">
+                        <a href="#" class="text-teal-600 hover:text-teal-800"><i class="fab fa-linkedin"></i></a>
+                        <a href="#" class="text-teal-600 hover:text-teal-800"><i class="fab fa-twitter"></i></a>
+                      </div>
+                    </div> -->
+                </div>
             </div>
-            <!-- Speaker 5 -->
-            <div class="bg-gray-50 rounded-xl p-4 shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 animate-fade-in-up delay-200 profile-card text-center">
-                <!-- Image -->
-                <img src="img/sanjeev" alt=" Prof. Sanjeev Kumar" class="w-20 h-20 mx-auto rounded-full object-cover mb-3">
-                <!-- Name with link -->
-                <h3 class="text-lg font-bold text-teal-700">
-                    <a href="https://www.iitr.ac.in/~MA/Malikfma" target="_blank" class="hover:underline">
-                        Prof. Sanjeev Kumar
-                    </a>
-                </h3>
-                <p class="text-sm text-gray-600">IIT Roorkee</p>
+        </section>
+
+        <!-- Registration Section -->
+        <section id="registration" class="bg-white min-h-screen py-16 hidden">
+            <div class="container mx-auto p-4 md:p-8">
+                <div class="text-center animate-fade-in-up">
+                    <h1 class="text-4xl md:text-5xl font-extrabold text-teal-800 mb-4">Fees & Registration</h1>
+                    <div class="w-16 h-1 bg-coral-500 rounded mb-6 mx-auto"></div>
+                    <p class="text-lg text-gray-700 max-w-2xl mx-auto">Secure your spot for an unforgettable day of learning and networking. Review the registration fees below and register now!</p>
+                </div>
+                <div class="mt-12 max-w-3xl mx-auto animate-fade-in-up delay-200">
+                    <!-- Fees Table -->
+                    <div class="overflow-x-auto">
+                        <table class="w-full text-left border-collapse bg-gray-50 rounded-xl shadow-md">
+                            <thead>
+                                <tr class="bg-teal-700 text-white">
+                                    <th class="p-4 font-semibold">Category</th>
+                                    <th class="p-4 font-semibold">Online</th>
+                                    <th class="p-4 font-semibold">Offline</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr class="border-b border-gray-200 hover:bg-gray-100">
+                                    <td class="p-4 text-gray-700">Students</td>
+                                    <td class="p-4 text-gray-700">Rs 1500/-</td>
+                                    <td class="p-4 text-gray-700">Rs 2500/-</td>
+                                </tr>
+                                <tr class="border-b border-gray-200 hover:bg-gray-100">
+                                    <td class="p-4 text-gray-700">Faculty</td>
+                                    <td class="p-4 text-gray-700">Rs 2500/-</td>
+                                    <td class="p-4 text-gray-700">Rs 3500/-</td>
+                                </tr>
+                                <tr class="border-b border-gray-200 hover:bg-gray-100">
+                                    <td class="p-4 text-gray-700">Industry</td>
+                                    <td class="p-4 text-gray-700">Rs 4000/-</td>
+                                    <td class="p-4 text-gray-700">Rs 5000/-</td>
+                                </tr>
+                                <tr class="hover:bg-gray-100">
+                                    <td class="p-4 text-gray-700">International</td>
+                                    <td class="p-4 text-gray-700">USD 100/-</td>
+                                    <td class="p-4 text-gray-700">USD 150/-</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <p><b>Note</b> : 18% GST Exempted on Registration Fee for the <b>Student/Faculty/Staff</b> of NITJ.</p>
+                    </div>
+                    <!-- Barcode and Registration Button -->
+                    <div class="mt-8 flex flex-col md:flex-row items-center justify-center gap-8">
+                        <img src="img/qr2.png" alt="Registration Barcode" class="w-40 h-40 object-contain rounded-lg shadow-md">
+                        <!-- <button onclick="alert('Redirecting to registration portal...')" class="custom-button bg-coral-500 text-white">Register Now</button> -->
+                        <a href="https://www.nitj.ac.in/events_registration/workshop_wsscml_2025/login" target="_blank" class="custom-button bg-coral-500 text-white">Register Now</a>
+
+                    </div>
+                </div>
             </div>
-            <!-- Speaker 6 -->
-            <div class="bg-gray-50 rounded-xl p-4 shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 animate-fade-in-up delay-200 profile-card text-center">
-                <!-- Image -->
-                <img src="img/prasanta.jpg" alt="Dr. Prasanta Kumar Ghosh" class="w-20 h-20 mx-auto rounded-full object-cover mb-3">
-                <!-- Name with link -->
-                <h3 class="text-lg font-bold text-teal-700">
-                    <a href="https://eecs.iisc.ac.in/people/prasanta-kumar-ghosh/" target="_blank" class="hover:underline">
-                        Dr. Prasanta Kumar Ghosh
-                    </a>
-                </h3>
-                <p class="text-sm text-gray-600">IISc Bangalore</p>
+        </section>
+
+        <!-- Schedule Section -->
+        <section id="schedule" class="bg-gray-50 min-h-screen py-16 hidden">
+            <div class="container mx-auto p-4 md:p-8">
+                <div class="text-center animate-fade-in-up">
+                    <h1 class="text-4xl md:text-5xl font-extrabold text-teal-800 mb-4">Workshop Schedule</h1>
+                    <div class="w-16 h-1 bg-coral-500 rounded mb-6 mx-auto"></div>
+                    <p class="text-lg text-gray-700 max-w-2xl mx-auto">View the detailed schedule of the Winter School below.</p>
+                </div>
+                <div class="mt-12 max-w-4xl mx-auto animate-fade-in-up delay-200">
+                    <iframe src="https://placehold.co/600x800/ffffff/000000?text=Schedule+PDF" class="w-full h-[600px] rounded-xl shadow-md border-0" title="Winter School Schedule PDF"></iframe>
+                    <div class="mt-6 text-center">
+                        <a href="https://placehold.co/600x800/ffffff/000000?text=Schedule+PDF" download class="custom-button bg-teal-600 text-white inline-block">Download Schedule PDF</a>
+                    </div>
+                </div>
             </div>
-            <!-- Speaker 7 -->
-            <div class="bg-gray-50 rounded-xl p-4 shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 animate-fade-in-up delay-200 profile-card text-center">
-                <!-- Image -->
-                <img src="img/sangeeta.png" alt="Dr. Sangeeta Yadav" class="w-20 h-20 mx-auto rounded-full object-cover mb-3">
-                <!-- Name with link -->
-                <h3 class="text-lg font-bold text-teal-700">
-                    <a href="https://beta.du.ac.in/dr-sangeeta-yadav/" target="_blank" class="hover:underline">
-                        Dr. Sangeeta Yadav
-                    </a>
-                </h3>
-                <p class="text-sm text-gray-600">University of Delhi</p>
+        </section>
+
+        <!-- Organiser Section -->
+        <section id="organiser" class="bg-white min-h-screen py-16 hidden">
+            <div class="container mx-auto p-4 md:p-8">
+                <div class="text-center animate-fade-in-up">
+                    <h1 class="text-4xl md:text-5xl font-extrabold text-teal-800 mb-4">Meet the Organisers</h1>
+                    <div class="w-16 h-1 bg-coral-500 rounded mb-6 mx-auto"></div>
+                    <!-- <p class="text-lg text-gray-700 max-w-2xl mx-auto">The Winter School is brought to you by a dedicated team of organizers, featuring speakers, institute representatives, and scholars who ensure a world-class experience.</p> -->
+                </div>
+                <!-- Department Profile -->
+                <div class="mt-12">
+                    <!-- <h2 class="text-3xl font-bold text-teal-800 mb-8 text-center">Profile</h2> -->
+                    <div class="flex flex-wrap gap-4 justify-center">
+                        <div class="bg-gray-50 rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 animate-fade-in-up w-full md:w-3/4 lg:w-2/3">
+                            <img src="img/nitj.png" alt="Institute Logo" class="w-full h-32 object-contain rounded-lg mb-4">
+                            <h3 class="text-2xl font-bold text-teal-700 mb-3 text-center">
+                                Department of Mathematics and Computing
+                            </h3>
+                            <p class="text-base text-gray-700 mb-4 text-justify">Dr B R Ambedkar National Institute of Technology  Jalandhar, Punjab, India</p>
+                            <div class="flex justify-center space-x-4">
+                                <a href="https://www.nitj.ac.in/" class="text-teal-600 hover:text-teal-800 text-xl">
+                                    <i class="fas fa-globe"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <!--
+    <!-- Speakers Profiles -->
+                <div class="mt-12">
+                    <div class="flex flex-wrap gap-4 justify-center">
+                        <!-- Speaker 1 -->
+                        <div class="bg-gray-50 rounded-xl p-4 shadow-md transition-all duration-300 transform hover:-translate-y-2 hover:scale-105 hover:shadow-xl text-center">
+                            <!-- Image -->
+                            <img src="img/neha.jpg" alt="Dr Neha Yadav" class="w-20 h-20 mx-auto rounded-full object-cover mb-3">
+                            <!-- Name with link -->
+                            <h3 class="text-lg font-bold text-teal-700">
+                                <a href="https://departments.nitj.ac.in/dept/ma/Faculty/6430447238bff038a7808d4c" target="_blank" class="hover:underline">
+                                    Dr Neha Yadav
+                                </a>
+                            </h3>
+                            <p class="text-sm text-gray-600">Assistant Professor, M&amp;C</p>
+                        </div>
+                        <!-- Speaker 2 -->
+                        <div class="bg-gray-50 rounded-xl p-4 shadow-md transition-all duration-300 transform hover:-translate-y-2 hover:scale-105 hover:shadow-xl text-center">
+                            <!-- Image -->
+                            <img src="img/anupam.jpeg" alt="Dr Anupam Yadav" class="w-20 h-20 mx-auto rounded-full object-cover mb-3">
+                            <!-- Name with link -->
+                            <h3 class="text-lg font-bold text-teal-700">
+                                <a href="https://departments.nitj.ac.in/dept/ma/Faculty/6430446b38bff038a7808524" target="_blank" class="hover:underline">
+                                    Dr Anupam Yadav
+                                </a>
+                            </h3>
+                            <p class="text-sm text-gray-600">Associate Professor, M&amp;C</p>
+                        </div>
+                        <!-- Speaker 3 -->
+                        <div class="bg-gray-50 rounded-xl p-4 shadow-md transition-all duration-300 transform hover:-translate-y-2 hover:scale-105 hover:shadow-xl text-center">
+                            <!-- Image -->
+                            <img src="img/op.jpg" alt="Dr O.P. Verma" class="w-20 h-20 mx-auto rounded-full object-cover mb-3">
+                            <!-- Name with link -->
+                            <h3 class="text-lg font-bold text-teal-700">
+                                <a href="https://departments.nitj.ac.in/dept/ice/Faculty/6430446638bff038a7807a2f" target="_blank" class="hover:underline">
+                                    Dr O.P. Verma
+                                </a>
+                            </h3>
+                            <p class="text-sm text-gray-600">Assistant Professor, ICE</p>
+                        </div>
+                        <!-- Speaker 4 -->
+                        <div class="bg-gray-50 rounded-xl p-4 shadow-md transition-all duration-300 transform hover:-translate-y-2 hover:scale-105 hover:shadow-xl text-center">
+                            <!-- Image -->
+                            <img src="img/sivaraj.jpg" alt="Dr R. SivaRaj" class="w-20 h-20 mx-auto rounded-full object-cover mb-3">
+                            <!-- Name with link -->
+                            <h3 class="text-lg font-bold text-teal-700">
+                                <a href="https://departments.nitj.ac.in/dept/ma/Faculty/6430447438bff038a7808f16" target="_blank" class="hover:underline">
+                                    Dr R. SivaRaj
+                                </a>
+                            </h3>
+                            <p class="text-sm text-gray-600">Associate Professor, M&amp;C</p>
+                        </div>
+                        <!-- Speaker 5 -->
+                        <div class="bg-gray-50 rounded-xl p-4 shadow-md transition-all duration-300 transform hover:-translate-y-2 hover:scale-105 hover:shadow-xl text-center">
+                            <!-- Image -->
+                            <img src="img/rr.jpg" alt="Dr R.R. Sinha" class="w-20 h-20 mx-auto rounded-full object-cover mb-3">
+                            <!-- Name with link -->
+                            <h3 class="text-lg font-bold text-teal-700">
+                                <a href="https://departments.nitj.ac.in/dept/ma/Faculty/6430445a38bff038a780665d" target="_blank" class="hover:underline">
+                                    Dr R.R. Sinha
+                                </a>
+                            </h3>
+                            <p class="text-sm text-gray-600">Associate Professor, M&amp;C</p>
+                        </div>
+
+                    </div>
+                </div>
+
+
+
+
+                <!-- Scholars Profiles -->
+                <div class="mt-12">
+                    <h2 class="text-3xl font-bold text-teal-800 mb-8 text-center">Researchers</h2>
+                    <div class="flex flex-wrap gap-4 justify-center">
+
+                        <!-- Scholar 1 -->
+                        <div class="bg-gray-50 rounded-xl p-4 shadow-md transition-all duration-300 transform hover:-translate-y-2 hover:scale-105 hover:shadow-xl text-center">
+                            <!-- Image -->
+                            <img src="img/rashmi.png" alt="Rashmi" class="w-20 h-20 mx-auto rounded-full object-cover mb-3">
+                            <!-- Name -->
+                            <h3 class="text-lg font-bold text-teal-700">Dr. Harender Kumar</h3>
+                            <p class="text-sm text-gray-600">Assistant Professor</p>
+                            <p class="text-sm text-gray-600">CCS University Meerut</p>
+
+                        </div>
+
+                        <!-- Scholar 1 -->
+                        <div class="bg-gray-50 rounded-xl p-4 shadow-md transition-all duration-300 transform hover:-translate-y-2 hover:scale-105 hover:shadow-xl text-center">
+                            <!-- Image -->
+                            <img src="img/aditi.png" alt="Aditi" class="w-20 h-20 mx-auto rounded-full object-cover mb-3">
+                            <!-- Name -->
+                            <h3 class="text-lg font-bold text-teal-700">Aditi Sharma</h3>
+                            <p class="text-sm text-gray-600">PhD Student</p>
+                        </div>
+
+                        <!-- Scholar 2 -->
+                        <div class="bg-gray-50 rounded-xl p-4 shadow-md transition-all duration-300 transform hover:-translate-y-2 hover:scale-105 hover:shadow-xl text-center">
+                            <!-- Image -->
+                            <img src="img/rashmi.png" alt="Rashmi" class="w-20 h-20 mx-auto rounded-full object-cover mb-3">
+                            <!-- Name -->
+                            <h3 class="text-lg font-bold text-teal-700">Rashmi Singh</h3>
+                            <p class="text-sm text-gray-600">PhD Student</p>
+                        </div>
+
+                        <!-- Scholar 3 -->
+                        <div class="bg-gray-50 rounded-xl p-4 shadow-md transition-all duration-300 transform hover:-translate-y-2 hover:scale-105 hover:shadow-xl text-center">
+                            <!-- Image -->
+                            <img src="img/manpreet.png" alt="Manpreet" class="w-20 h-20 mx-auto rounded-full object-cover mb-3">
+                            <!-- Name -->
+                            <h3 class="text-lg font-bold text-teal-700">Manpreet Kaur</h3>
+                            <p class="text-sm text-gray-600">PhD Student</p>
+                        </div>
+
+                        <!-- Scholar 4 -->
+                        <div class="bg-gray-50 rounded-xl p-4 shadow-md transition-all duration-300 transform hover:-translate-y-2 hover:scale-105 hover:shadow-xl text-center">
+                            <!-- Image -->
+                            <img src="img/shivali.png" alt="Shivali" class="w-20 h-20 mx-auto rounded-full object-cover mb-3">
+                            <!-- Name -->
+                            <h3 class="text-lg font-bold text-teal-700">Shivali Sharma</h3>
+                            <p class="text-sm text-gray-600">PhD Student</p>
+                        </div>
+
+                        <!-- Scholar 5 -->
+                        <div class="bg-gray-50 rounded-xl p-4 shadow-md transition-all duration-300 transform hover:-translate-y-2 hover:scale-105 hover:shadow-xl text-center">
+                            <!-- Image -->
+                            <img src="img/bablu.png" alt="Bablu" class="w-20 h-20 mx-auto rounded-full object-cover mb-3">
+                            <!-- Name -->
+                            <h3 class="text-lg font-bold text-teal-700">Bablu Kumar Sah</h3>
+                            <p class="text-sm text-gray-600">PhD Student</p>
+                        </div>
+                        <!-- Scholar 6 -->
+                        <div class="bg-gray-50 rounded-xl p-4 shadow-md transition-all duration-300 transform hover:-translate-y-2 hover:scale-105 hover:shadow-xl text-center">
+                            <!-- Image -->
+                            <img src="img/dhruv.jpeg" alt="Dhruv" class="w-20 h-20 mx-auto rounded-full object-cover mb-3">
+                            <!-- Name -->
+                            <h3 class="text-lg font-bold text-teal-700">Dhruv Bindra</h3>
+                            <p class="text-sm text-gray-600">M.tech Student</p>
+                        </div>
+                        <!-- Scholar 7 -->
+                        <div class="bg-gray-50 rounded-xl p-4 shadow-md transition-all duration-300 transform hover:-translate-y-2 hover:scale-105 hover:shadow-xl text-center">
+                            <!-- Image -->
+                            <img src="img/atul.jpg" alt="Atul" class="w-20 h-20 mx-auto rounded-full object-cover mb-3">
+                            <!-- Name -->
+                            <h3 class="text-lg font-bold text-teal-700">Atul Rajput</h3>
+                            <p class="text-sm text-gray-600">M.tech Student</p>
+                        </div>
+
+                    </div>
+                </div>
+
             </div>
-            <!-- Speaker 8 -->
-            <div class="bg-gray-50 rounded-xl p-4 shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 animate-fade-in-up delay-200 profile-card text-center">
-                <!-- Image -->
-                <img src="img/kshitiji.jpeg" alt=" Mr. Kshitij Parwani" class="w-20 h-20 mx-auto rounded-full object-cover mb-3">
-                <!-- Name with link -->
-                <h3 class="text-lg font-bold text-teal-700">
-                    <a href="https://in.linkedin.com/in/kshitij-parwani" target="_blank" class="hover:underline">
-                        Mr. Kshitij Parwani
-                    </a>
-                </h3>
-                <p class="text-sm text-gray-600">Amazon Pune</p>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gradient-to-r from-teal-900 to-teal-950 text-gray-300 py-10 px-4 md:px-8 mt-auto">
+        <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div>
+                <h4 class="text-coral-400 font-bold text-xl mb-4">Winter School Info</h4>
+                <ul>
+                    <!-- <li><button onclick="showSection('schedule')" class="hover:text-coral-400 transition-colors">Schedule</button></li> -->
+                    <li><button onclick="showSection('speaker')" class="hover:text-coral-400 transition-colors">Speakers</button></li>
+                    <li><button onclick="showSection('organiser')" class="hover:text-coral-400 transition-colors">Organisers</button></li>
+                </ul>
             </div>
-            <!-- Speaker 9 -->
-            <div class="bg-gray-50 rounded-xl p-4 shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 animate-fade-in-up delay-200 profile-card text-center">
-                <!-- Image -->
-                <img src="img/anupam.jpeg" alt="Dr. Anupam Yadav" class="w-20 h-20 mx-auto rounded-full object-cover mb-3">
-                <!-- Name with link -->
-                <h3 class="text-lg font-bold text-teal-700">
-                    <a href="https://departments.nitj.ac.in/dept/ma/Faculty/6430446b38bff038a7808524" target="_blank" class="hover:underline">
-                        Dr. Anupam Yadav
-                    </a>
-                </h3>
-                <p class="text-sm text-gray-600">NIT Jalandhar</p>
+            <div>
+                <h4 class="text-coral-400 font-bold text-xl mb-4">Quick Links</h4>
+                <ul>
+                    <li><button href="#home" class="hover:text-coral-400 transition-colors">Home</button></li>
+                    <li><button onclick="showSection('registration')" class="hover:text-coral-400 transition-colors">Register</button></li>
+                    <li><button onclick="showSection('about')" class="hover:text-coral-400 transition-colors">About</button></li>
+                </ul>
             </div>
-            <!-- Speaker 10 -->
-            <div class="bg-gray-50 rounded-xl p-4 shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 animate-fade-in-up delay-200 profile-card text-center">
-                <!-- Image -->
-                <img src="img/neha.jpg" alt=" Dr. Neha Yadav" class="w-20 h-20 mx-auto rounded-full object-cover mb-3">
-                <!-- Name with link -->
+            <div>
+                <h4 class="text-coral-400 font-bold text-xl mb-4">Connect with Us</h4>
                 <h3 class="text-lg font-bold text-teal-700">
                     <a href="https://departments.nitj.ac.in/dept/ma/Faculty/6430447238bff038a7808d4c" target="_blank" class="hover:underline">
-                        Dr. Neha Yadav
+                        Dr Neha Yadav
                     </a>
                 </h3>
-                <p class="text-sm text-gray-600">NIT Jalandhar</p>
-            </div>
-            <!-- Speaker # -->
-            <!-- <div class="bg-gray-50 rounded-xl p-4 shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 animate-fade-in-up delay-200 profile-card">
-      <div class="flex items-center space-x-3 mb-3">
-        <img src="https://placehold.co/60x60/ff6f61/ffffff?text=MS" alt="placeholder" class="w-14 h-14 rounded-full object-cover">
-        <div>
-          <h3 class="text-lg font-bold text-teal-700">Placeholder</h3>
-          <p class="text-sm text-gray-600">placeholder</p>
-        </div>
-      </div>
-      <p class="text-sm text-gray-700 mb-3">Placeholder</p>
-      <div class="flex space-x-2">
-        <a href="#" class="text-teal-600 hover:text-teal-800"><i class="fab fa-linkedin"></i></a>
-        <a href="#" class="text-teal-600 hover:text-teal-800"><i class="fab fa-twitter"></i></a>
-      </div>
-    </div> -->
-        </div>
-      </div>
-    </section>
+                <ul class="space-y-2">
 
-    <!-- Registration Section -->
-    <section id="registration" class="bg-white min-h-screen py-16 hidden">
-      <div class="container mx-auto p-4 md:p-8">
-        <div class="text-center animate-fade-in-up">
-          <h1 class="text-4xl md:text-5xl font-extrabold text-teal-800 mb-4">Fees & Registration</h1>
-          <div class="w-16 h-1 bg-coral-500 rounded mb-6 mx-auto"></div>
-          <p class="text-lg text-gray-700 max-w-2xl mx-auto">Secure your spot for an unforgettable day of learning and networking. Review the registration fees below and register now!</p>
-        </div>
-        <div class="mt-12 max-w-3xl mx-auto animate-fade-in-up delay-200">
-          <!-- Fees Table -->
-          <div class="overflow-x-auto">
-            <table class="w-full text-left border-collapse bg-gray-50 rounded-xl shadow-md">
-              <thead>
-                <tr class="bg-teal-700 text-white">
-                  <th class="p-4 font-semibold">Category</th>
-                  <th class="p-4 font-semibold">Online</th>
-                  <th class="p-4 font-semibold">Offline</th>
-                </tr>
-              </thead>
-              <tbody>
-                <tr class="border-b border-gray-200 hover:bg-gray-100">
-                  <td class="p-4 text-gray-700">Students</td>
-                  <td class="p-4 text-gray-700">Rs 1500/-</td>
-                  <td class="p-4 text-gray-700">Rs 2500/-</td>
-                </tr>
-                <tr class="border-b border-gray-200 hover:bg-gray-100">
-                  <td class="p-4 text-gray-700">Faculty</td>
-                  <td class="p-4 text-gray-700">Rs 2500/-</td>
-                  <td class="p-4 text-gray-700">Rs 3500/-</td>
-                </tr>
-                <tr class="border-b border-gray-200 hover:bg-gray-100">
-                  <td class="p-4 text-gray-700">Industry</td>
-                  <td class="p-4 text-gray-700">Rs 4000/-</td>
-                  <td class="p-4 text-gray-700">Rs 5000/-</td>
-                </tr>
-                <tr class="hover:bg-gray-100">
-                  <td class="p-4 text-gray-700">International</td>
-                  <td class="p-4 text-gray-700">USD 100/-</td>
-                  <td class="p-4 text-gray-700">USD 150/-</td>
-                </tr>
-              </tbody>
-            </table>
-<p><b>Note</b> : 18% GST Exempted on Registration Fee for the <b>Student/Faculty/Staff</b> of NITJ.</p>
-          </div>
-          <!-- Barcode and Registration Button -->
-          <div class="mt-8 flex flex-col md:flex-row items-center justify-center gap-8">
-            <img src="img/qr2.png" alt="Registration Barcode" class="w-40 h-40 object-contain rounded-lg shadow-md">
-            <!-- <button onclick="alert('Redirecting to registration portal...')" class="custom-button bg-coral-500 text-white">Register Now</button> -->
-             <a href="https://www.nitj.ac.in/events_registration/workshop_wsscml_2025/login" target="_blank" class="custom-button bg-coral-500 text-white">Register Now</a>
-
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Schedule Section -->
-    <section id="schedule" class="bg-gray-50 min-h-screen py-16 hidden">
-      <div class="container mx-auto p-4 md:p-8">
-        <div class="text-center animate-fade-in-up">
-          <h1 class="text-4xl md:text-5xl font-extrabold text-teal-800 mb-4">Workshop Schedule</h1>
-          <div class="w-16 h-1 bg-coral-500 rounded mb-6 mx-auto"></div>
-          <p class="text-lg text-gray-700 max-w-2xl mx-auto">View the detailed schedule of the Winter School below.</p>
-        </div>
-        <div class="mt-12 max-w-4xl mx-auto animate-fade-in-up delay-200">
-          <iframe src="https://placehold.co/600x800/ffffff/000000?text=Schedule+PDF" class="w-full h-[600px] rounded-xl shadow-md border-0" title="Winter School Schedule PDF"></iframe>
-          <div class="mt-6 text-center">
-            <a href="https://placehold.co/600x800/ffffff/000000?text=Schedule+PDF" download class="custom-button bg-teal-600 text-white inline-block">Download Schedule PDF</a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- Organiser Section -->
-    <section id="organiser" class="bg-white min-h-screen py-16 hidden">
-      <div class="container mx-auto p-4 md:p-8">
-        <div class="text-center animate-fade-in-up">
-          <h1 class="text-4xl md:text-5xl font-extrabold text-teal-800 mb-4">Meet the Organisers</h1>
-          <div class="w-16 h-1 bg-coral-500 rounded mb-6 mx-auto"></div>
-          <p class="text-lg text-gray-700 max-w-2xl mx-auto">The Winter School is brought to you by a dedicated team of organizers, featuring speakers, institute representatives, and scholars who ensure a world-class experience.</p>
-        </div>
-
-        <!-- Speakers Profiles -->
-        <div class="mt-12">
-            <div class="flex flex-wrap gap-4 justify-center">
-                <!-- Speaker 1 -->
-                <div class="bg-gray-50 rounded-xl p-4 shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 animate-fade-in-up delay-200 profile-card text-center">
-                    <!-- Image -->
-                    <img src="img/neha.jpg" alt="Dr Neha Yadav" class="w-20 h-20 mx-auto rounded-full object-cover mb-3">
-                    <!-- Name with link -->
-                    <h3 class="text-lg font-bold text-teal-700">
-                        <a href="https://departments.nitj.ac.in/dept/ma/Faculty/6430447238bff038a7808d4c" target="_blank" class="hover:underline">
-                            Dr Neha Yadav
-                        </a>
-                    </h3>
-                    <p class="text-sm text-gray-600">Assistant Professor, M&amp;C</p>
-                </div>
-                <!-- Speaker 2 -->
-                <div class="bg-gray-50 rounded-xl p-4 shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 animate-fade-in-up delay-200 profile-card text-center">
-                    <!-- Image -->
-                    <img src="img/anupam.jpeg" alt="Dr Anupam Yadav" class="w-20 h-20 mx-auto rounded-full object-cover mb-3">
-                    <!-- Name with link -->
-                    <h3 class="text-lg font-bold text-teal-700">
-                        <a href="https://departments.nitj.ac.in/dept/ma/Faculty/6430446b38bff038a7808524" target="_blank" class="hover:underline">
-                            Dr Anupam Yadav
-                        </a>
-                    </h3>
-                    <p class="text-sm text-gray-600">Associate Professor, M&amp;C</p>
-                </div>
-                <!-- Speaker 3 -->
-                <div class="bg-gray-50 rounded-xl p-4 shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 animate-fade-in-up delay-200 profile-card text-center">
-                    <!-- Image -->
-                    <img src="img/op.jpg" alt="Dr O.P. Verma" class="w-20 h-20 mx-auto rounded-full object-cover mb-3">
-                    <!-- Name with link -->
-                    <h3 class="text-lg font-bold text-teal-700">
-                        <a href="https://departments.nitj.ac.in/dept/ice/Faculty/6430446638bff038a7807a2f" target="_blank" class="hover:underline">
-                            Dr O.P. Verma
-                        </a>
-                    </h3>
-                    <p class="text-sm text-gray-600">Assistant Professor, ICE</p>
-                </div>
-                <!-- Speaker 4 -->
-                <div class="bg-gray-50 rounded-xl p-4 shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 animate-fade-in-up delay-200 profile-card text-center">
-                    <!-- Image -->
-                    <img src="img/sivaraj.jpg" alt="Dr R. SivaRaj" class="w-20 h-20 mx-auto rounded-full object-cover mb-3">
-                    <!-- Name with link -->
-                    <h3 class="text-lg font-bold text-teal-700">
-                        <a href="https://departments.nitj.ac.in/dept/ma/Faculty/6430447438bff038a7808f16" target="_blank" class="hover:underline">
-                            Dr R. SivaRaj
-                        </a>
-                    </h3>
-                    <p class="text-sm text-gray-600">Associate Professor, M&amp;C</p>
-                </div>
-                <!-- Speaker 5 -->
-                <div class="bg-gray-50 rounded-xl p-4 shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 animate-fade-in-up delay-200 profile-card text-center">
-                    <!-- Image -->
-                    <img src="img/rr.jpg" alt="Dr R.R. Sinha" class="w-20 h-20 mx-auto rounded-full object-cover mb-3">
-                    <!-- Name with link -->
-                    <h3 class="text-lg font-bold text-teal-700">
-                        <a href="https://departments.nitj.ac.in/dept/ma/Faculty/6430445a38bff038a780665d" target="_blank" class="hover:underline">
-                            Dr R.R. Sinha
-                        </a>
-                    </h3>
-                    <p class="text-sm text-gray-600">Associate Professor, M&amp;C</p>
-                </div>
-
+                    <li class="flex items-center space-x-2"><i class="fas fa-phone-alt"></i><span>+91 7310751691</span></li>
+                    <li class="flex items-center space-x-2"><i class="fas fa-envelope"></i><span>scml.mc@nitj.ac.in</span></li>
+                    <li class="flex items-center space-x-2"><i class="fas fa-map-marker-alt"></i><span> Dr. B.R. Ambedkar National Institute of Technology Jalandhar, Punjab - 144011, India</span></li>
+                </ul>
             </div>
         </div>
-
-<!-- Institute Profile -->
-<div class="mt-12">
-  <h2 class="text-3xl font-bold text-teal-800 mb-8 text-center">Institute Profile</h2>
-  <div class="flex flex-wrap gap-4 justify-center">
-    <div class="bg-gray-50 rounded-xl p-6 shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 animate-fade-in-up w-full md:w-3/4 lg:w-2/3">
-      <img src="img/nitj.png" alt="Institute Logo" class="w-full h-32 object-contain rounded-lg mb-4">
-      <h3 class="text-2xl font-bold text-teal-700 mb-3 text-center">
-        Dr B R Ambedkar National Institute of Technology Jalandhar
-      </h3>
-      <p class="text-base text-gray-700 mb-4 text-justify">
-        NIT Jalandhar is ranked 55th in the National Institutional Ranking Framework (NIRF-2025), 
-        Band-Excellent in the Atal Ranking of Institutions on Innovation Achievements (ARIIA), 
-        and was recently ranked in the 301-350 range in the Times Higher Education (THE) Young University Rankings 2024.
-      </p>
-      <div class="flex justify-center space-x-4">
-        <a href="https://www.nitj.ac.in/" class="text-teal-600 hover:text-teal-800 text-xl">
-          <i class="fas fa-globe"></i>
-        </a>
-      </div>
-    </div>
-  </div>
-</div>
-
-<template id="scholars-disabled">
-        <!-- Scholars Profiles -->
-        <div class="mt-12">
-          <h2 class="text-3xl font-bold text-teal-800 mb-8 text-center">Scholars Profiles</h2>
-          <div class="flex flex-wrap gap-4 justify-center">
-            <!-- Scholar 1 -->
-            <div class="bg-gray-50 rounded-xl p-4 shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 animate-fade-in-up profile-card">
-              <div class="flex items-center space-x-3 mb-3">
-                <img src="https://placehold.co/60x60/ff6f61/ffffff?text=RS" alt="Rajesh Kumar" class="w-14 h-14 rounded-full object-cover">
-                <div>
-                  <h3 class="text-lg font-bold text-teal-700">Rajesh Kumar</h3>
-                  <p class="text-sm text-gray-600">PhD Scholar</p>
-                </div>
-              </div>
-              <p class="text-sm text-gray-700 mb-3">Researching sustainable design practices and their impact on user experience.</p>
-              <div class="flex space-x-2">
-                <a href="#" class="text-teal-600 hover:text-teal-800"><i class="fab fa-linkedin"></i></a>
-                <a href="#" class="text-teal-600 hover:text-teal-800"><i class="fab fa-twitter"></i></a>
-              </div>
-            </div>
-            <!-- Scholar 2 -->
-            <div class="bg-gray-50 rounded-xl p-4 shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 animate-fade-in-up delay-100 profile-card">
-              <div class="flex items-center space-x-3 mb-3">
-                <img src="https://placehold.co/60x60/ff6f61/ffffff?text=LS" alt="Lisa Chen" class="w-14 h-14 rounded-full object-cover">
-                <div>
-                  <h3 class="text-lg font-bold text-teal-700">Lisa Chen</h3>
-                  <p class="text-sm text-gray-600">Research Scholar</p>
-                </div>
-              </div>
-              <p class="text-sm text-gray-700 mb-3">Exploring cognitive psychology in interface design to enhance engagement.</p>
-              <div class="flex space-x-2">
-                <a href="#" class="text-teal-600 hover:text-teal-800"><i class="fab fa-linkedin"></i></a>
-                <a href="#" class="text-teal-600 hover:text-teal-800"><i class="fab fa-twitter"></i></a>
-              </div>
-            </div>
-            <!-- Scholar 3 -->
-            <div class="bg-gray-50 rounded-xl p-4 shadow-md hover:shadow-xl transition-all duration-300 transform hover:-translate-y-2 animate-fade-in-up delay-200 profile-card">
-              <div class="flex items-center space-x-3 mb-3">
-                <img src="https://placehold.co/60x60/ff6f61/ffffff?text=AM" alt="Ahmed Malik" class="w-14 h-14 rounded-full object-cover">
-                <div>
-                  <h3 class="text-lg font-bold text-teal-700">Ahmed Malik</h3>
-                  <p class="text-sm text-gray-600">Academic Scholar</p>
-                </div>
-              </div>
-              <p class="text-sm text-gray-700 mb-3">Investigating visual design principles in the era of AI-generated content.</p>
-              <div class="flex space-x-2">
-                <a href="#" class="text-teal-600 hover:text-teal-800"><i class="fab fa-linkedin"></i></a>
-                <a href="#" class="text-teal-600 hover:text-teal-800"><i class="fab fa-twitter"></i></a>
-              </div>
-            </div>
-          </div>
+        <div class="border-t border-gray-700 mt-8 pt-4 text-center text-sm">
+            Copyright © 2025 Winter School. All Rights Reserved.
         </div>
-</template>
-      </div>
-    </section>
-  </main>
+    </footer>
 
-  <!-- Footer -->
-  <footer class="bg-gradient-to-r from-teal-900 to-teal-950 text-gray-300 py-10 px-4 md:px-8 mt-auto">
-    <div class="container mx-auto grid grid-cols-1 md:grid-cols-3 gap-8">
-      <div>
-        <h4 class="text-coral-400 font-bold text-xl mb-4">Winter School Info</h4>
-        <ul>
-          <!-- <li><button onclick="showSection('schedule')" class="hover:text-coral-400 transition-colors">Schedule</button></li> -->
-          <li><button onclick="showSection('speaker')" class="hover:text-coral-400 transition-colors">Speakers</button></li>
-          <li><button onclick="showSection('organiser')" class="hover:text-coral-400 transition-colors">Organisers</button></li>
-        </ul>
-      </div>
-      <div>
-        <h4 class="text-coral-400 font-bold text-xl mb-4">Quick Links</h4>
-        <ul>
-          <li><button href="#home" class="hover:text-coral-400 transition-colors">Home</button></li>
-          <li><button onclick="showSection('registration')" class="hover:text-coral-400 transition-colors">Register</button></li>
-          <li><button onclick="showSection('about')" class="hover:text-coral-400 transition-colors">About</button></li>
-        </ul>
-      </div>
-      <div>
-        <h4 class="text-coral-400 font-bold text-xl mb-4">Connect with Us</h4>
-        <ul class="space-y-2">
-          <li class="flex items-center space-x-2"><i class="fas fa-phone-alt"></i><span>+91 7310751691</span></li>
-          <li class="flex items-center space-x-2"><i class="fas fa-envelope"></i><span>scml.mc@nitj.ac.in</span></li>
-          <li class="flex items-center space-x-2"><i class="fas fa-map-marker-alt"></i><span> Dr. B.R. Ambedkar National Institute of Technology Jalandhar, Punjab - 144011, India</span></li>
-        </ul>
-      </div>
-    </div>
-    <div class="border-t border-gray-700 mt-8 pt-4 text-center text-sm">
-      Copyright © 2025 Winter School. All Rights Reserved.
-    </div>
-  </footer>
+    <script>
+        function toggleMenu() {
+            const menu = document.getElementById('nav-menu');
+            const icon = document.getElementById('menu-icon');
+            menu.classList.toggle('hidden');
+            icon.innerHTML = menu.classList.contains('hidden') ?
+                `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>` :
+                `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>`;
+        }
 
-  <script>
-    function toggleMenu() {
-      const menu = document.getElementById('nav-menu');
-      const icon = document.getElementById('menu-icon');
-      menu.classList.toggle('hidden');
-      icon.innerHTML = menu.classList.contains('hidden') ?
-        `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path>` :
-        `<path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path>`;
-    }
+        function showSection(sectionId) {
+            document.querySelectorAll('main section').forEach(section => {
+                section.classList.add('hidden');
+            });
+            document.getElementById(sectionId).classList.remove('hidden');
+            document.querySelectorAll('.nav-link').forEach(link => {
+                link.classList.remove('bg-coral-500', 'text-white', 'shadow-md');
+                link.classList.add('text-gray-200', 'hover:text-white', 'hover:bg-teal-700');
+            });
+            const activeLink = document.querySelector(`.nav-link[data-section="${sectionId}"]`);
+            if (activeLink) {
+                activeLink.classList.remove('text-gray-200', 'hover:text-white', 'hover:bg-teal-700');
+                activeLink.classList.add('bg-coral-500', 'text-white', 'shadow-md');
+            }
+            document.title = `Winter School | ${sectionId.charAt(0).toUpperCase() + sectionId.slice(1)}`;
+            toggleMenu();
+        }
 
-    function showSection(sectionId) {
-      document.querySelectorAll('main section').forEach(section => {
-        section.classList.add('hidden');
-      });
-      document.getElementById(sectionId).classList.remove('hidden');
-      document.querySelectorAll('.nav-link').forEach(link => {
-        link.classList.remove('bg-coral-500', 'text-white', 'shadow-md');
-        link.classList.add('text-gray-200', 'hover:text-white', 'hover:bg-teal-700');
-      });
-      const activeLink = document.querySelector(`.nav-link[data-section="${sectionId}"]`);
-      if (activeLink) {
-        activeLink.classList.remove('text-gray-200', 'hover:text-white', 'hover:bg-teal-700');
-        activeLink.classList.add('bg-coral-500', 'text-white', 'shadow-md');
-      }
-      document.title = `Winter School | ${sectionId.charAt(0).toUpperCase() + sectionId.slice(1)}`;
-      toggleMenu();
-    }
-
-    // Show home section by default
-    showSection('home');
-  </script>
+        // Show home section by default
+        showSection('home');
+    </script>
 </body>
 </html>
